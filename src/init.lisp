@@ -154,4 +154,3 @@
               (remove-duplicates (getf elems :elems)))      
       (format stream "~{~a~%~%~}" (getf elems :classes)))))
 
-(spec-write-to-file (get-spec))

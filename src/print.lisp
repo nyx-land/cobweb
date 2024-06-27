@@ -13,18 +13,14 @@
 
 (defgeneric html-writer (object stream &optional indent)
   (:documentation "Write the HTML object to something.")
+  (:method (object (stream stream) &optional indent)
+    (html-writer object stream indent))
   (:method (object (stream t) &optional indent)
     (html-writer object *standard-output* indent))
   (:method (object (stream null) &optional indent)
     (let ((out (make-string-output-stream)))
       (html-writer object out indent)
-      (get-output-stream-string out)))
-  (:method (object (stream pathname) &optional indent)
-    (with-open-file (out stream
-                         :direction :output
-                         :if-does-not-exist :create
-                         :if-exists :supersede)
-      (html-writer object out indent))))
+      (get-output-stream-string out))))
 
 (defmethod html-writer (object (stream stream)
                         &optional (indent nil))
