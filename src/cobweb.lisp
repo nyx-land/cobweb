@@ -47,9 +47,6 @@
 (defmacro with-html (&body body)
   `(set-hierarchy (vector ,@(sexp-parse body)) nil))
 
-(defmacro with-html-write (stream return &body body)
+(defmacro with-html-write (stream &body body)
   `(let ((html (set-hierarchy (vector ,@(sexp-parse body)) nil)))
-     (if ,return
-         (values html
-                 (html-writer html ,stream))
-         (html-writer html ,stream))))
+     (values html (html-writer html ,stream))))

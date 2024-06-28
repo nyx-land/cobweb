@@ -25,7 +25,6 @@ Spinneret or CL-WHO, but for my own purposes, I wanted to be able to
 implement some fancy features for Cobweb's sister project Widow and
 being able to use the MOP seemed like the best way to do it.
 
-
 ** Installation
 
 You will need to clone this [[https://asdf.common-lisp.dev/asdf.html#Configuring-ASDF-to-find-your-systems][somewhere that ASDF can find it]], unless I
@@ -43,10 +42,10 @@ file, and also return the standard-objects if desired.
 HTML fragment and returns the element(s) as a vector of
 standard-objects
 
-=WITH-HTML-WRITE= also accepts =STREAM= and =RETURN=. =STREAM= takes
-the same arguments as =FORMAT=: =NIL= returns a string, =T= prints to
-stdout, or otherwise it can be any other stream. If =RETURN= is =T=
-it'll return the objects as well. 
+=WITH-HTML-WRITE= also accepts =STREAM=. =STREAM= takes the same
+arguments as =FORMAT=: =NIL= returns a string, =T= prints to stdout,
+or otherwise it can be any other stream. It will return the written
+HTML and the objects.
 
 #+begin_src common-lisp
 CL-USER> (ql:quickload :cobweb)
@@ -82,7 +81,7 @@ CL-USER> (let ((css #P"/static/css/style.css")
                (lyrics (uiop:split-string
                         (alexandria:read-file-into-string #P"~/lyrics.txt")
                         :separator '(#\newline))))
-           (cobweb:with-html-write t t
+           (cobweb:with-html-write t
              (html
               (head
                ;; you can reference variables from outside the scope

@@ -1,12 +1,12 @@
-- [Cobweb 🕸](#org87c9720)
-  - [Why would I want this?](#org4b235e6)
-  - [Installation](#orge24aa38)
-  - [Usage](#org2d5f87d)
-  - [Generating the Spec](#org36cf0e8)
-  - [Potential Improvements](#org83ed147)
+- [Cobweb 🕸](#org28544dc)
+  - [Why would I want this?](#org35a0bda)
+  - [Installation](#org0bc615b)
+  - [Usage](#org675951f)
+  - [Generating the Spec](#org6ceb3cf)
+  - [Potential Improvements](#org0ef3a80)
 
 
-<a id="org87c9720"></a>
+<a id="org28544dc"></a>
 
 # Cobweb 🕸
 
@@ -17,21 +17,21 @@ Unlike the other sexp emitters that currently exist for CL, Cobweb isn't just a 
 Cobweb also has the advantage of being generated from the W3 spec rather than at the discretion of the implementer or by relying on a simple non-validating macro system. It turns out that it's rather trivial to do this thanks to the machine-readable version that W3 provides, and with how important backwards-compatibility is for the web it's unlikely that it'll change drastically anytime soon.
 
 
-<a id="org4b235e6"></a>
+<a id="org35a0bda"></a>
 
 ## Why would I want this?
 
 You may not have any use case for this and be better off with Spinneret or CL-WHO, but for my own purposes, I wanted to be able to implement some fancy features for Cobweb's sister project Widow and being able to use the MOP seemed like the best way to do it.
 
 
-<a id="orge24aa38"></a>
+<a id="org0bc615b"></a>
 
 ## Installation
 
 You will need to clone this [somewhere that ASDF can find it](https://asdf.common-lisp.dev/asdf.html#Configuring-ASDF-to-find-your-systems), unless I decide this project is good enough to submit to Quicklisp.
 
 
-<a id="org2d5f87d"></a>
+<a id="org675951f"></a>
 
 ## Usage
 
@@ -39,7 +39,7 @@ Cobweb exports two macros, `WITH-HTML` and `WITH-HTML-WRITE`, along with all the
 
 `WITH-HTML` just takes an s-expression `(&BODY BODY)` representing an HTML fragment and returns the element(s) as a vector of standard-objects
 
-`WITH-HTML-WRITE` also accepts `STREAM` and `RETURN`. `STREAM` takes the same arguments as `FORMAT`: `NIL` returns a string, `T` prints to stdout, or otherwise it can be any other stream. If `RETURN` is `T` it'll return the objects as well.
+`WITH-HTML-WRITE` also accepts `STREAM`. `STREAM` takes the same arguments as `FORMAT`: `NIL` returns a string, `T` prints to stdout, or otherwise it can be any other stream. It will return the written HTML and the objects.
 
 ```common-lisp
 CL-USER> (ql:quickload :cobweb)
@@ -75,7 +75,7 @@ CL-USER> (let ((css #P"/static/css/style.css")
                (lyrics (uiop:split-string
                         (alexandria:read-file-into-string #P"~/lyrics.txt")
                         :separator '(#\newline))))
-           (cobweb:with-html-write t t
+           (cobweb:with-html-write t
              (html
               (head
                ;; you can reference variables from outside the scope
@@ -165,14 +165,14 @@ CL-USER>
 `HTML-WRITER` is a method and can be customized like any other method to control how the HTML is printed. By default it'll pretty-print as best I could figure out how to do using `FORMAT`.
 
 
-<a id="org36cf0e8"></a>
+<a id="org6ceb3cf"></a>
 
 ## Generating the Spec
 
 `COBWEB-GEN` does technically work but it's still pretty hacky and bad so I wouldn't recommend touching it right now.
 
 
-<a id="org83ed147"></a>
+<a id="org0ef3a80"></a>
 
 ## Potential Improvements
 
