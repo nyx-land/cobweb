@@ -53,104 +53,87 @@
                     (push k (gethash :elements filtered)))))
     filtered))
 
-(defun write-slots (attrs)
+(defun write-attrs (attrs)
   (when attrs
     (loop for tag in attrs
           collect (format nil "attr-~a :initarg :~a :accessor attr-~a"
                           tag tag tag))))
 
-(defun spec-writer (name super attrs)
-  (format nil "(defclass ~(el-~a~) (~@[~{~(~a~)~^ ~}~])
-  (~@[~{(~a)~^~%   ~}~]))"
-          name super (write-slots attrs)))
+
+(defun write-class (name super attrs &optional non-tag (stream nil))
+  (let ((attr-strings (write-attrs attrs)))
+    (format stream "(defclass ~(elem-~a~) (~@[~{~(~a~)~^ ~}~])~:[ ()~;~]~@[
+  (~{(~a)~^~%   ~})~]~@[
+  (:default-initargs
+   :tag '~a)~])~%~%"
+            name super
+            attr-strings
+            attr-strings
+            (unless non-tag name))))
 
 (defun export-attr (attr)
   (make-exportable
    (format nil "attr-~a" attr)))
 
-(defun collect-exportable (tag for-attrs)
-  (let* ((tag-sym (format nil "el-~a" tag))
-         (attrs (gethash tag for-attrs)))
-    (cons
-     (cons (make-exportable tag)
-           (read-from-string tag-sym))
-     (cons (make-exportable tag-sym)
-           (mapcar #'export-attr attrs)))))
+(defun write-exports (tag for-attrs &optional (stream nil))
+  (format stream "~12t~a~%"
+          (string-trim '(#\( #\))
+                       (format nil "~@<~(~s~)~:@>"
+                               (alexandria:flatten
+                                (list (make-exportable (format nil "elem-~a" tag))
+                                      (mapcar #'export-attr for-attrs)))))))
 
-(defun write-globals (for-attrs)
-  (let ((attrs (concatenate 'list
-                            (gethash "global" for-attrs)
-                            (gethash "html-global" for-attrs))))
-    (list
-     (cons (make-exportable 'el-global)
-           (mapcar #'export-attr attrs))
-     (spec-writer "global" nil attrs))))
-
-(defun write-elements (f-spec)
+(defun write-spec (f-spec &optional (c-stream nil) (p-stream nil))
   (let* ((elems (gethash :elements f-spec))
          (for-attrs (gethash :for-attrs f-spec))
-         (globals (write-globals for-attrs))
-         (out '(:symbols nil :elems nil :classes nil)))
-    (push (car globals) (getf out :symbols))
-    (push (cadr globals) (getf out :classes))
+         (global-attrs (concatenate 'list
+                                    (gethash "global" for-attrs)
+                                    (gethash "html-global" for-attrs))))
+    (write-class "global" '(fragment) global-attrs t c-stream)
+    (write-exports "global" global-attrs p-stream)
     (loop for e in elems
           as heading = (gethash "heading" e)
           as tag = (aref (gethash "linkingText" e) 0)
-          as exp = (collect-exportable tag for-attrs)
-          do (push (car exp) (getf out :elems))
-             (push (cdr exp) (getf out :symbols))
-             (push (spec-writer tag
-                                (if (equalp "non-conforming-features"
-                                            (gethash "id" heading))
-                                    '(el-global html-tag non-conforming-features)
-                                    '(el-global html-tag))
-                                (remove-duplicates
-                                 (gethash tag for-attrs) :test #'equalp))
-                   (getf out :classes)))
-    out))
+          as supers = (if (equalp "non-conforming-features"
+                                  (gethash "id" heading))
+                          '(elem-global fragment non-conforming-features)
+                          '(elem-global fragment))
+          do (write-class tag supers
+                            (remove-duplicates
+                             (gethash tag for-attrs) :test #'equalp)
+                            nil c-stream)
+             (write-exports tag (gethash tag for-attrs) p-stream))))
 
-(defun write-exports (symbols)
-  (let ((formatted (format nil "~@<~(~s~)~:@>" (alexandria:flatten symbols))))
-    (with-open-file (stream (asdf:system-relative-pathname
-                             :cobweb "src/package.lisp")
-                            :direction :io
-                            :if-exists :overwrite)
-      (loop for line = (read-line stream nil :eof)
-            until (eq line :eof)
-            when (search ";; begin autoexport" line :test #'equalp)
-              do (format stream "~12t;; at ~a
-~a))"
-                         (local-time:format-timestring nil (local-time:now))
-                         (string-trim '(#\( #\)) formatted))))))
+(defun write-files (spec)
+  (let ((f-spec (collect-spec spec))
+        (package-src (uiop:read-file-string
+                      (asdf:system-relative-pathname
+                       :cobweb "src/package-src.lisp")))
+        (spec-src (uiop:read-file-string
+                   (asdf:system-relative-pathname
+                    :cobweb "src/spec-src.lisp")))
+        (package-out (open (asdf:system-relative-pathname
+                            :cobweb "src/package.lisp")
+                           :direction :output
+                           :if-exists :supersede
+                           :if-does-not-exist :create))
+        (spec-out (open (asdf:system-relative-pathname
+                         :cobweb "src/spec.lisp")
+                        :direction :output
+                        :if-exists :supersede
+                        :if-does-not-exist :create)))
+    (format package-out "~a
+;; begin autoexport at ~a~%"
+            package-src
+            (local-time:format-timestring nil (local-time:now)))
+    (format spec-out "~a~%
+;; begin autogenerate at ~a~%"
+            spec-src
+            (local-time:format-timestring nil (local-time:now)))
+    (write-spec f-spec spec-out package-out)
+    (write-string "))" package-out)
+    (close package-out)
+    (close spec-out)))
 
-(defun spec-write-to-file (spec)
-  (let* ((f-spec (collect-spec spec))
-         (elems (write-elements f-spec)))
-    (write-exports (getf elems :symbols))
-    (with-open-file (stream (asdf:system-relative-pathname
-                             :cobweb "src/spec.lisp")
-                            :direction :output
-                            :if-does-not-exist :create
-                            :if-exists :supersede)
-      (format stream "(in-package :cobweb)
 
-;;;; this file has been autogenerated by init.lisp
-;;;; at ~a
-
-(defparameter *el-tags* 
-  '~(~s~))
-
-(defclass html-tag () 
-  ((tag-parent :initarg :parent :accessor parent)
-   (depth :initarg :depth :accessor depth)
-   (tag-body :initarg :body :accessor body))
-  (:default-initargs
-   :body (vector)))
-
-(defclass non-conforming-features () ())
-
-"
-              (local-time:format-timestring nil (local-time:now))
-              (remove-duplicates (getf elems :elems)))      
-      (format stream "~{~a~%~%~}" (getf elems :classes)))))
 
