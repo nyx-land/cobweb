@@ -63,13 +63,13 @@
 (defun write-class (name super attrs &optional non-tag (stream nil))
   (let ((attr-strings (write-attrs attrs)))
     (format stream "(defclass ~(elem-~a~) (~@[~{~(~a~)~^ ~}~])~:[ ()~;~]~@[
-  (~{(~a)~^~%   ~})~]~@[
-  (:default-initargs
-   :tag '~a)~])~%~%"
+  (~{(~a)~^~%   ~})~]
+  (:metaclass xhtml-meta)~@[
+  (:tag nil)~])~%~%"
             name super
             attr-strings
             attr-strings
-            (unless non-tag name))))
+            non-tag)))
 
 (defun export-attr (attr)
   (make-exportable
@@ -89,7 +89,7 @@
          (global-attrs (concatenate 'list
                                     (gethash "global" for-attrs)
                                     (gethash "html-global" for-attrs))))
-    (write-class "global" '(fragment) global-attrs t c-stream)
+    (write-class "global" '(xhtml) global-attrs t c-stream)
     (write-exports "global" global-attrs p-stream)
     (loop for e in elems
           as heading = (gethash "heading" e)
