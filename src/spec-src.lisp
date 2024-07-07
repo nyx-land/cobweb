@@ -51,7 +51,7 @@
 
 (defclass xhtml () 
   ((parent    :initarg :parent :accessor parent)
-   (depth     :initarg :depth  :accessor depth)
+   (coords    :initarg :coords :accessor coords)
    (html-body :initarg :body   :accessor html-body))
   (:metaclass xhtml-meta)
   (:tag nil))

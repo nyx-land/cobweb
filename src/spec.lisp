@@ -51,7 +51,7 @@
 
 (defclass xhtml () 
   ((parent    :initarg :parent :accessor parent)
-   (depth     :initarg :depth  :accessor depth)
+   (coords    :initarg :coords :accessor coords)
    (html-body :initarg :body   :accessor html-body))
   (:metaclass xhtml-meta)
   (:tag nil))
@@ -67,7 +67,7 @@ HTML element.")
   (:tag nil))
 
 
-;; begin autogenerate at 2024-07-06T19:12:48.751720-07:00
+;; begin autogenerate at 2024-07-06T23:44:57.220436-07:00
 (defclass elem-global (xhtml)
   ((attr-slot :initarg :slot :accessor attr-slot)
    (attr-id :initarg :id :accessor attr-id)

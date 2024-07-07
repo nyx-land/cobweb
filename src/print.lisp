@@ -1,7 +1,7 @@
 (in-package :cobweb)
 
-(defmethod print-object ((object el-global) stream)
-  (with-slots (tag-body depth attr-class attr-id) object
+(defmethod print-object ((object elem-global) stream)
+  (with-slots (html-body depth attr-class attr-id) object
     (print-unreadable-object (object stream)
       (format stream "~a ~@[~a ~]~@[~a ~]~@<~:_~a~:>"
               (truncate-name object)
@@ -9,7 +9,7 @@
                 (format nil ":CLASS ~s" attr-class))
               (when (slot-boundp object 'attr-id)
                 (format nil ":ID ~s" attr-id))
-              (when tag-body tag-body)))))
+              (when html-body html-body)))))
 
 (defgeneric html-writer (object stream &optional indent)
   (:documentation "Write the HTML object to something.")
@@ -30,7 +30,7 @@
                         &optional (indent nil))
   (format stream "~@[~vt~]~a~%" indent object))
 
-(defmethod html-writer ((object html-tag) (stream stream)
+(defmethod html-writer ((object xhtml) (stream stream)
                         &optional (indent nil))
   (let* ((tag (truncate-name object))
          (slot-list (bound-slots object))
@@ -43,8 +43,8 @@
             indent
             tag
             slot-strings)
-    (when (body object)
-      (html-writer (body object) stream
+    (when (html-body object)
+      (html-writer (html-body object) stream
                    (if indent (+ 2 indent) 2)))
     (format stream "~@[~vt~]</~(~a~)>~%" indent tag)))
 
