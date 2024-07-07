@@ -2,23 +2,76 @@
 
 (defparameter *elem-tags* (make-hash-table))
 
+(defclass xhtml-meta (standard-class)
+  ((is-tag :initarg :is-tag :accessor is-tag))
+  (:documentation "The HTML metaclass."))
+
+(defmethod c2mop:ensure-class-using-class :around ((class xhtml-meta) name
+                                                   &key (tag '(:elem)) &allow-other-keys)
+  (setf (is-tag (call-next-method)) (car tag)))
+
+(defmethod c2mop:validate-superclass  
+    ((class xhtml-meta) (super standard-class))  
+  t)
+
+(c2mop:ensure-finalized (find-class 'xhtml-meta))
+
+(defgeneric expose-tag (class key)
+  (:documentation "Describes how to make a class parseable."))
+
+(defmethod expose-tag :before ((class xhtml-meta) key)
+  (declare (ignore key))
+  (c2mop:ensure-finalized class))
+
+(defmethod expose-tag (class (key null))
+  t)
+
+(defmethod expose-tag (class key)
+  (setf (gethash (is-tag class) *elem-tags*)
+        (expose-tag (c2mop:class-slots class) :add-slots))
+  t)
+
+(defmethod expose-tag ((slots list) (key (eql :add-slots)))
+  (loop for slot in slots
+        as slot-name = (symbol-name (c2mop:slot-definition-name slot))
+        when (search "ATTR-" slot-name)
+          collect (car (c2mop:slot-definition-initargs slot))))
+
+(defmethod expose-tag ((class xhtml-meta) (key (eql :elem)))
+  (let ((tag (read-from-string (subseq (symbol-name (class-name class)) 5))))
+    (setf (gethash tag *elem-tags*)
+          (expose-tag (c2mop:class-slots class) :add-slots))
+    t))
+
+(defmethod initialize-instance :after ((class xhtml-meta)
+                                       &key (tag '(:elem)) &allow-other-keys)
+  (setf (is-tag class) tag)
+  (expose-tag class (car tag)))
+
+(defmethod reinitialize-instance :after ((class xhtml-meta)
+                                         &key (tag '(:elem)) &allow-other-keys)
+  (setf (is-tag class) tag)
+  (expose-tag class (car tag)))
+
 (defclass xhtml () 
   ((parent    :initarg :parent :accessor parent)
    (depth     :initarg :depth  :accessor depth)
-   (html-body :initarg :body   :accessor html-body)
-   (tag       :initarg :tag    :accessor tag))
-  (:default-initargs
-   :body (vector)))
+   (html-body :initarg :body   :accessor html-body))
+  (:metaclass xhtml-meta)
+  (:tag nil))
 
 (defclass fragment (xhtml) ()
+  (:metaclass xhtml-meta)
   (:documentation "An abstract middleware class between XHTML and every
-HTML element."))
+HTML element.")
+  (:tag nil))
 
-(defclass non-conforming-features () ())
+(defclass non-conforming-features () ()
+  (:metaclass xhtml-meta)
+  (:tag nil))
 
-
-;; begin autogenerate at 2024-07-05T00:34:08.687802-07:00
-(defclass elem-global ()
+;; begin autogenerate at 2024-07-06T18:58:53.105798-07:00
+(defclass elem-global (xhtml)
   ((attr-slot :initarg :slot :accessor attr-slot)
    (attr-id :initarg :id :accessor attr-id)
    (attr-class :initarg :class :accessor attr-class)
@@ -45,150 +98,119 @@ HTML element."))
    (attr-dir :initarg :dir :accessor attr-dir)
    (attr-translate :initarg :translate :accessor attr-translate)
    (attr-lang :initarg :lang :accessor attr-lang)
-   (attr-title :initarg :title :accessor attr-title)))
+   (attr-title :initarg :title :accessor attr-title))
+  (:metaclass xhtml-meta)
+  (:tag nil))
 
 (defclass elem-frame (elem-global fragment) ()
-  (:default-initargs
-   :tag 'frame))
+  (:metaclass xhtml-meta))
 
 (defclass elem-frameset (elem-global fragment) ()
-  (:default-initargs
-   :tag 'frameset))
+  (:metaclass xhtml-meta))
 
 (defclass elem-marquee (elem-global fragment)
   ((attr-loop :initarg :loop :accessor attr-loop)
    (attr-truespeed :initarg :truespeed :accessor attr-truespeed)
    (attr-direction :initarg :direction :accessor attr-direction)
    (attr-behavior :initarg :behavior :accessor attr-behavior))
-  (:default-initargs
-   :tag 'marquee))
+  (:metaclass xhtml-meta))
 
 (defclass elem-tt (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'tt))
+  (:metaclass xhtml-meta))
 
 (defclass elem-spacer (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'spacer))
+  (:metaclass xhtml-meta))
 
 (defclass elem-nobr (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'nobr))
+  (:metaclass xhtml-meta))
 
 (defclass elem-multicol (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'multicol))
+  (:metaclass xhtml-meta))
 
 (defclass elem-font (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'font))
+  (:metaclass xhtml-meta))
 
 (defclass elem-center (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'center))
+  (:metaclass xhtml-meta))
 
 (defclass elem-blink (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'blink))
+  (:metaclass xhtml-meta))
 
 (defclass elem-big (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'big))
+  (:metaclass xhtml-meta))
 
 (defclass elem-basefont (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'basefont))
+  (:metaclass xhtml-meta))
 
 (defclass elem-xmp (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'xmp))
+  (:metaclass xhtml-meta))
 
 (defclass elem-strike (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'strike))
+  (:metaclass xhtml-meta))
 
 (defclass elem-rtc (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'rtc))
+  (:metaclass xhtml-meta))
 
 (defclass elem-rb (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'rb))
+  (:metaclass xhtml-meta))
 
 (defclass elem-plaintext (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'plaintext))
+  (:metaclass xhtml-meta))
 
 (defclass elem-param (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'param))
+  (:metaclass xhtml-meta))
 
 (defclass elem-noembed (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'noembed))
+  (:metaclass xhtml-meta))
 
 (defclass elem-nextid (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'nextid))
+  (:metaclass xhtml-meta))
 
 (defclass elem-menuitem (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'menuitem))
+  (:metaclass xhtml-meta))
 
 (defclass elem-listing (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'listing))
+  (:metaclass xhtml-meta))
 
 (defclass elem-keygen (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'keygen))
+  (:metaclass xhtml-meta))
 
 (defclass elem-isindex (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'isindex))
+  (:metaclass xhtml-meta))
 
 (defclass elem-noframes (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'noframes))
+  (:metaclass xhtml-meta))
 
 (defclass elem-dir (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'dir))
+  (:metaclass xhtml-meta))
 
 (defclass elem-bgsound (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'bgsound))
+  (:metaclass xhtml-meta))
 
 (defclass elem-acronym (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'acronym))
+  (:metaclass xhtml-meta))
 
 (defclass elem-applet (elem-global fragment non-conforming-features) ()
-  (:default-initargs
-   :tag 'applet))
+  (:metaclass xhtml-meta))
 
 (defclass elem-canvas (elem-global fragment)
   ((attr-height :initarg :height :accessor attr-height)
    (attr-width :initarg :width :accessor attr-width))
-  (:default-initargs
-   :tag 'canvas))
+  (:metaclass xhtml-meta))
 
 (defclass elem-slot (elem-global fragment)
   ((attr-name :initarg :name :accessor attr-name))
-  (:default-initargs
-   :tag 'slot))
+  (:metaclass xhtml-meta))
 
 (defclass elem-template (elem-global fragment)
   ((attr-shadowrootserializable :initarg :shadowrootserializable :accessor attr-shadowrootserializable)
    (attr-shadowrootclonable :initarg :shadowrootclonable :accessor attr-shadowrootclonable)
    (attr-shadowrootdelegatesfocus :initarg :shadowrootdelegatesfocus :accessor attr-shadowrootdelegatesfocus)
    (attr-shadowrootmode :initarg :shadowrootmode :accessor attr-shadowrootmode))
-  (:default-initargs
-   :tag 'template))
+  (:metaclass xhtml-meta))
 
 (defclass elem-noscript (elem-global fragment) ()
-  (:default-initargs
-   :tag 'noscript))
+  (:metaclass xhtml-meta))
 
 (defclass elem-script (elem-global fragment)
   ((attr-for :initarg :for :accessor attr-for)
@@ -205,36 +227,30 @@ HTML element."))
    (attr-nomodule :initarg :nomodule :accessor attr-nomodule)
    (attr-src :initarg :src :accessor attr-src)
    (attr-type :initarg :type :accessor attr-type))
-  (:default-initargs
-   :tag 'script))
+  (:metaclass xhtml-meta))
 
 (defclass elem-dialog (elem-global fragment)
   ((attr-open :initarg :open :accessor attr-open))
-  (:default-initargs
-   :tag 'dialog))
+  (:metaclass xhtml-meta))
 
 (defclass elem-summary (elem-global fragment) ()
-  (:default-initargs
-   :tag 'summary))
+  (:metaclass xhtml-meta))
 
 (defclass elem-details (elem-global fragment)
   ((attr-open :initarg :open :accessor attr-open)
    (attr-name :initarg :name :accessor attr-name))
-  (:default-initargs
-   :tag 'details))
+  (:metaclass xhtml-meta))
 
 (defclass elem-legend (elem-global fragment)
   ((attr-align :initarg :align :accessor attr-align))
-  (:default-initargs
-   :tag 'legend))
+  (:metaclass xhtml-meta))
 
 (defclass elem-fieldset (elem-global fragment)
   ((attr-autocomplete :initarg :autocomplete :accessor attr-autocomplete)
    (attr-name :initarg :name :accessor attr-name)
    (attr-form :initarg :form :accessor attr-form)
    (attr-disabled :initarg :disabled :accessor attr-disabled))
-  (:default-initargs
-   :tag 'fieldset))
+  (:metaclass xhtml-meta))
 
 (defclass elem-meter (elem-global fragment)
   ((attr-optimum :initarg :optimum :accessor attr-optimum)
@@ -243,14 +259,12 @@ HTML element."))
    (attr-value :initarg :value :accessor attr-value)
    (attr-max :initarg :max :accessor attr-max)
    (attr-min :initarg :min :accessor attr-min))
-  (:default-initargs
-   :tag 'meter))
+  (:metaclass xhtml-meta))
 
 (defclass elem-progress (elem-global fragment)
   ((attr-max :initarg :max :accessor attr-max)
    (attr-value :initarg :value :accessor attr-value))
-  (:default-initargs
-   :tag 'progress))
+  (:metaclass xhtml-meta))
 
 (defclass elem-output (elem-global fragment)
   ((attr-autocomplete :initarg :autocomplete :accessor attr-autocomplete)
@@ -258,8 +272,7 @@ HTML element."))
    (attr-name :initarg :name :accessor attr-name)
    (attr-form :initarg :form :accessor attr-form)
    (attr-for :initarg :for :accessor attr-for))
-  (:default-initargs
-   :tag 'output))
+  (:metaclass xhtml-meta))
 
 (defclass elem-textarea (elem-global fragment)
   ((attr-autocomplete :initarg :autocomplete :accessor attr-autocomplete)
@@ -275,8 +288,7 @@ HTML element."))
    (attr-rows :initarg :rows :accessor attr-rows)
    (attr-cols :initarg :cols :accessor attr-cols)
    (attr-readonly :initarg :readonly :accessor attr-readonly))
-  (:default-initargs
-   :tag 'textarea))
+  (:metaclass xhtml-meta))
 
 (defclass elem-option (elem-global fragment)
   ((attr-name :initarg :name :accessor attr-name)
@@ -284,18 +296,15 @@ HTML element."))
    (attr-value :initarg :value :accessor attr-value)
    (attr-label :initarg :label :accessor attr-label)
    (attr-disabled :initarg :disabled :accessor attr-disabled))
-  (:default-initargs
-   :tag 'option))
+  (:metaclass xhtml-meta))
 
 (defclass elem-optgroup (elem-global fragment)
   ((attr-label :initarg :label :accessor attr-label)
    (attr-disabled :initarg :disabled :accessor attr-disabled))
-  (:default-initargs
-   :tag 'optgroup))
+  (:metaclass xhtml-meta))
 
 (defclass elem-datalist (elem-global fragment) ()
-  (:default-initargs
-   :tag 'datalist))
+  (:metaclass xhtml-meta))
 
 (defclass elem-select (elem-global fragment)
   ((attr-autocomplete :initarg :autocomplete :accessor attr-autocomplete)
@@ -305,8 +314,7 @@ HTML element."))
    (attr-required :initarg :required :accessor attr-required)
    (attr-size :initarg :size :accessor attr-size)
    (attr-multiple :initarg :multiple :accessor attr-multiple))
-  (:default-initargs
-   :tag 'select))
+  (:metaclass xhtml-meta))
 
 (defclass elem-button (elem-global fragment)
   ((attr-autocomplete :initarg :autocomplete :accessor attr-autocomplete)
@@ -325,8 +333,7 @@ HTML element."))
    (attr-form :initarg :form :accessor attr-form)
    (attr-value :initarg :value :accessor attr-value)
    (attr-type :initarg :type :accessor attr-type))
-  (:default-initargs
-   :tag 'button))
+  (:metaclass xhtml-meta))
 
 (defclass elem-input (elem-global fragment)
   ((attr-vspace :initarg :vspace :accessor attr-vspace)
@@ -359,13 +366,11 @@ HTML element."))
    (attr-checked :initarg :checked :accessor attr-checked)
    (attr-value :initarg :value :accessor attr-value)
    (attr-type :initarg :type :accessor attr-type))
-  (:default-initargs
-   :tag 'input))
+  (:metaclass xhtml-meta))
 
 (defclass elem-label (elem-global fragment)
   ((attr-for :initarg :for :accessor attr-for))
-  (:default-initargs
-   :tag 'label))
+  (:metaclass xhtml-meta))
 
 (defclass elem-form (elem-global fragment)
   ((attr-accept :initarg :accept :accessor attr-accept)
@@ -383,8 +388,7 @@ HTML element."))
    (attr-autocomplete :initarg :autocomplete :accessor attr-autocomplete)
    (attr-name :initarg :name :accessor attr-name)
    (attr-accept-charset :initarg :accept-charset :accessor attr-accept-charset))
-  (:default-initargs
-   :tag 'form))
+  (:metaclass xhtml-meta))
 
 (defclass elem-th (elem-global fragment)
   ((attr-width :initarg :width :accessor attr-width)
@@ -401,8 +405,7 @@ HTML element."))
    (attr-colspan :initarg :colspan :accessor attr-colspan)
    (attr-abbr :initarg :abbr :accessor attr-abbr)
    (attr-scope :initarg :scope :accessor attr-scope))
-  (:default-initargs
-   :tag 'th))
+  (:metaclass xhtml-meta))
 
 (defclass elem-td (elem-global fragment)
   ((attr-width :initarg :width :accessor attr-width)
@@ -419,8 +422,7 @@ HTML element."))
    (attr-headers :initarg :headers :accessor attr-headers)
    (attr-rowspan :initarg :rowspan :accessor attr-rowspan)
    (attr-colspan :initarg :colspan :accessor attr-colspan))
-  (:default-initargs
-   :tag 'td))
+  (:metaclass xhtml-meta))
 
 (defclass elem-tr (elem-global fragment)
   ((attr-valign :initarg :valign :accessor attr-valign)
@@ -429,16 +431,13 @@ HTML element."))
    (attr-char :initarg :char :accessor attr-char)
    (attr-bgcolor :initarg :bgcolor :accessor attr-bgcolor)
    (attr-align :initarg :align :accessor attr-align))
-  (:default-initargs
-   :tag 'tr))
+  (:metaclass xhtml-meta))
 
 (defclass elem-tfoot (elem-global fragment) ()
-  (:default-initargs
-   :tag 'tfoot))
+  (:metaclass xhtml-meta))
 
 (defclass elem-thead (elem-global fragment) ()
-  (:default-initargs
-   :tag 'thead))
+  (:metaclass xhtml-meta))
 
 (defclass elem-tbody (elem-global fragment)
   ((attr-valign :initarg :valign :accessor attr-valign)
@@ -446,8 +445,7 @@ HTML element."))
    (attr-charoff :initarg :charoff :accessor attr-charoff)
    (attr-char :initarg :char :accessor attr-char)
    (attr-align :initarg :align :accessor attr-align))
-  (:default-initargs
-   :tag 'tbody))
+  (:metaclass xhtml-meta))
 
 (defclass elem-col (elem-global fragment)
   ((attr-width :initarg :width :accessor attr-width)
@@ -456,18 +454,15 @@ HTML element."))
    (attr-char :initarg :char :accessor attr-char)
    (attr-align :initarg :align :accessor attr-align)
    (attr-span :initarg :span :accessor attr-span))
-  (:default-initargs
-   :tag 'col))
+  (:metaclass xhtml-meta))
 
 (defclass elem-colgroup (elem-global fragment)
   ((attr-span :initarg :span :accessor attr-span))
-  (:default-initargs
-   :tag 'colgroup))
+  (:metaclass xhtml-meta))
 
 (defclass elem-caption (elem-global fragment)
   ((attr-align :initarg :align :accessor attr-align))
-  (:default-initargs
-   :tag 'caption))
+  (:metaclass xhtml-meta))
 
 (defclass elem-table (elem-global fragment)
   ((attr-width :initarg :width :accessor attr-width)
@@ -482,8 +477,7 @@ HTML element."))
    (attr-align :initarg :align :accessor attr-align)
    (attr-summary :initarg :summary :accessor attr-summary)
    (attr-datapagesize :initarg :datapagesize :accessor attr-datapagesize))
-  (:default-initargs
-   :tag 'table))
+  (:metaclass xhtml-meta))
 
 (defclass elem-area (elem-global fragment)
   ((attr-nohref :initarg :nohref :accessor attr-nohref)
@@ -498,13 +492,11 @@ HTML element."))
    (attr-download :initarg :download :accessor attr-download)
    (attr-target :initarg :target :accessor attr-target)
    (attr-href :initarg :href :accessor attr-href))
-  (:default-initargs
-   :tag 'area))
+  (:metaclass xhtml-meta))
 
 (defclass elem-map (elem-global fragment)
   ((attr-name :initarg :name :accessor attr-name))
-  (:default-initargs
-   :tag 'map))
+  (:metaclass xhtml-meta))
 
 (defclass elem-track (elem-global fragment)
   ((attr-default :initarg :default :accessor attr-default)
@@ -512,8 +504,7 @@ HTML element."))
    (attr-srclang :initarg :srclang :accessor attr-srclang)
    (attr-src :initarg :src :accessor attr-src)
    (attr-kind :initarg :kind :accessor attr-kind))
-  (:default-initargs
-   :tag 'track))
+  (:metaclass xhtml-meta))
 
 (defclass elem-audio (elem-global fragment)
   ((attr-muted :initarg :muted :accessor attr-muted)
@@ -523,8 +514,7 @@ HTML element."))
    (attr-preload :initarg :preload :accessor attr-preload)
    (attr-crossorigin :initarg :crossorigin :accessor attr-crossorigin)
    (attr-src :initarg :src :accessor attr-src))
-  (:default-initargs
-   :tag 'audio))
+  (:metaclass xhtml-meta))
 
 (defclass elem-video (elem-global fragment)
   ((attr-height :initarg :height :accessor attr-height)
@@ -538,8 +528,7 @@ HTML element."))
    (attr-src :initarg :src :accessor attr-src)
    (attr-playsinline :initarg :playsinline :accessor attr-playsinline)
    (attr-poster :initarg :poster :accessor attr-poster))
-  (:default-initargs
-   :tag 'video))
+  (:metaclass xhtml-meta))
 
 (defclass elem-object (elem-global fragment)
   ((attr-vspace :initarg :vspace :accessor attr-vspace)
@@ -563,8 +552,7 @@ HTML element."))
    (attr-name :initarg :name :accessor attr-name)
    (attr-type :initarg :type :accessor attr-type)
    (attr-data :initarg :data :accessor attr-data))
-  (:default-initargs
-   :tag 'object))
+  (:metaclass xhtml-meta))
 
 (defclass elem-embed (elem-global fragment)
   ((attr-vspace :initarg :vspace :accessor attr-vspace)
@@ -575,8 +563,7 @@ HTML element."))
    (attr-width :initarg :width :accessor attr-width)
    (attr-type :initarg :type :accessor attr-type)
    (attr-src :initarg :src :accessor attr-src))
-  (:default-initargs
-   :tag 'embed))
+  (:metaclass xhtml-meta))
 
 (defclass elem-iframe (elem-global fragment)
   ((attr-vspace :initarg :vspace :accessor attr-vspace)
@@ -599,8 +586,7 @@ HTML element."))
    (attr-name :initarg :name :accessor attr-name)
    (attr-srcdoc :initarg :srcdoc :accessor attr-srcdoc)
    (attr-src :initarg :src :accessor attr-src))
-  (:default-initargs
-   :tag 'iframe))
+  (:metaclass xhtml-meta))
 
 (defclass elem-img (elem-global fragment)
   ((attr-vspace :initarg :vspace :accessor attr-vspace)
@@ -623,8 +609,7 @@ HTML element."))
    (attr-alt :initarg :alt :accessor attr-alt)
    (attr-srcset :initarg :srcset :accessor attr-srcset)
    (attr-src :initarg :src :accessor attr-src))
-  (:default-initargs
-   :tag 'img))
+  (:metaclass xhtml-meta))
 
 (defclass elem-source (elem-global fragment)
   ((attr-height :initarg :height :accessor attr-height)
@@ -634,142 +619,110 @@ HTML element."))
    (attr-srcset :initarg :srcset :accessor attr-srcset)
    (attr-media :initarg :media :accessor attr-media)
    (attr-type :initarg :type :accessor attr-type))
-  (:default-initargs
-   :tag 'source))
+  (:metaclass xhtml-meta))
 
 (defclass elem-picture (elem-global fragment) ()
-  (:default-initargs
-   :tag 'picture))
+  (:metaclass xhtml-meta))
 
 (defclass elem-del (elem-global fragment)
   ((attr-datetime :initarg :datetime :accessor attr-datetime)
    (attr-cite :initarg :cite :accessor attr-cite))
-  (:default-initargs
-   :tag 'del))
+  (:metaclass xhtml-meta))
 
 (defclass elem-ins (elem-global fragment)
   ((attr-datetime :initarg :datetime :accessor attr-datetime)
    (attr-cite :initarg :cite :accessor attr-cite))
-  (:default-initargs
-   :tag 'ins))
+  (:metaclass xhtml-meta))
 
 (defclass elem-wbr (elem-global fragment) ()
-  (:default-initargs
-   :tag 'wbr))
+  (:metaclass xhtml-meta))
 
 (defclass elem-br (elem-global fragment)
   ((attr-clear :initarg :clear :accessor attr-clear))
-  (:default-initargs
-   :tag 'br))
+  (:metaclass xhtml-meta))
 
 (defclass elem-span (elem-global fragment) ()
-  (:default-initargs
-   :tag 'span))
+  (:metaclass xhtml-meta))
 
 (defclass elem-bdo (elem-global fragment) ()
-  (:default-initargs
-   :tag 'bdo))
+  (:metaclass xhtml-meta))
 
 (defclass elem-bdi (elem-global fragment) ()
-  (:default-initargs
-   :tag 'bdi))
+  (:metaclass xhtml-meta))
 
 (defclass elem-mark (elem-global fragment) ()
-  (:default-initargs
-   :tag 'mark))
+  (:metaclass xhtml-meta))
 
 (defclass elem-u (elem-global fragment) ()
-  (:default-initargs
-   :tag 'u))
+  (:metaclass xhtml-meta))
 
 (defclass elem-b (elem-global fragment) ()
-  (:default-initargs
-   :tag 'b))
+  (:metaclass xhtml-meta))
 
 (defclass elem-i (elem-global fragment) ()
-  (:default-initargs
-   :tag 'i))
+  (:metaclass xhtml-meta))
 
 (defclass elem-sup (elem-global fragment) ()
-  (:default-initargs
-   :tag 'sup))
+  (:metaclass xhtml-meta))
 
 (defclass elem-sub (elem-global fragment) ()
-  (:default-initargs
-   :tag 'sub))
+  (:metaclass xhtml-meta))
 
 (defclass elem-kbd (elem-global fragment) ()
-  (:default-initargs
-   :tag 'kbd))
+  (:metaclass xhtml-meta))
 
 (defclass elem-samp (elem-global fragment) ()
-  (:default-initargs
-   :tag 'samp))
+  (:metaclass xhtml-meta))
 
 (defclass elem-var (elem-global fragment) ()
-  (:default-initargs
-   :tag 'var))
+  (:metaclass xhtml-meta))
 
 (defclass elem-code (elem-global fragment) ()
-  (:default-initargs
-   :tag 'code))
+  (:metaclass xhtml-meta))
 
 (defclass elem-time (elem-global fragment)
   ((attr-datetime :initarg :datetime :accessor attr-datetime))
-  (:default-initargs
-   :tag 'time))
+  (:metaclass xhtml-meta))
 
 (defclass elem-data (elem-global fragment)
   ((attr-value :initarg :value :accessor attr-value))
-  (:default-initargs
-   :tag 'data))
+  (:metaclass xhtml-meta))
 
 (defclass elem-rp (elem-global fragment) ()
-  (:default-initargs
-   :tag 'rp))
+  (:metaclass xhtml-meta))
 
 (defclass elem-rt (elem-global fragment) ()
-  (:default-initargs
-   :tag 'rt))
+  (:metaclass xhtml-meta))
 
 (defclass elem-ruby (elem-global fragment) ()
-  (:default-initargs
-   :tag 'ruby))
+  (:metaclass xhtml-meta))
 
 (defclass elem-abbr (elem-global fragment)
   ((attr-title :initarg :title :accessor attr-title))
-  (:default-initargs
-   :tag 'abbr))
+  (:metaclass xhtml-meta))
 
 (defclass elem-dfn (elem-global fragment)
   ((attr-title :initarg :title :accessor attr-title))
-  (:default-initargs
-   :tag 'dfn))
+  (:metaclass xhtml-meta))
 
 (defclass elem-q (elem-global fragment)
   ((attr-cite :initarg :cite :accessor attr-cite))
-  (:default-initargs
-   :tag 'q))
+  (:metaclass xhtml-meta))
 
 (defclass elem-cite (elem-global fragment) ()
-  (:default-initargs
-   :tag 'cite))
+  (:metaclass xhtml-meta))
 
 (defclass elem-s (elem-global fragment) ()
-  (:default-initargs
-   :tag 's))
+  (:metaclass xhtml-meta))
 
 (defclass elem-small (elem-global fragment) ()
-  (:default-initargs
-   :tag 'small))
+  (:metaclass xhtml-meta))
 
 (defclass elem-strong (elem-global fragment) ()
-  (:default-initargs
-   :tag 'strong))
+  (:metaclass xhtml-meta))
 
 (defclass elem-em (elem-global fragment) ()
-  (:default-initargs
-   :tag 'em))
+  (:metaclass xhtml-meta))
 
 (defclass elem-a (elem-global fragment)
   ((attr-urn :initarg :urn :accessor attr-urn)
@@ -787,79 +740,64 @@ HTML element."))
    (attr-download :initarg :download :accessor attr-download)
    (attr-target :initarg :target :accessor attr-target)
    (attr-href :initarg :href :accessor attr-href))
-  (:default-initargs
-   :tag 'a))
+  (:metaclass xhtml-meta))
 
 (defclass elem-div (elem-global fragment)
   ((attr-align :initarg :align :accessor attr-align))
-  (:default-initargs
-   :tag 'div))
+  (:metaclass xhtml-meta))
 
 (defclass elem-search (elem-global fragment) ()
-  (:default-initargs
-   :tag 'search))
+  (:metaclass xhtml-meta))
 
 (defclass elem-main (elem-global fragment) ()
-  (:default-initargs
-   :tag 'main))
+  (:metaclass xhtml-meta))
 
 (defclass elem-figcaption (elem-global fragment) ()
-  (:default-initargs
-   :tag 'figcaption))
+  (:metaclass xhtml-meta))
 
 (defclass elem-figure (elem-global fragment) ()
-  (:default-initargs
-   :tag 'figure))
+  (:metaclass xhtml-meta))
 
 (defclass elem-dd (elem-global fragment) ()
-  (:default-initargs
-   :tag 'dd))
+  (:metaclass xhtml-meta))
 
 (defclass elem-dt (elem-global fragment) ()
-  (:default-initargs
-   :tag 'dt))
+  (:metaclass xhtml-meta))
 
 (defclass elem-dl (elem-global fragment)
   ((attr-compact :initarg :compact :accessor attr-compact))
-  (:default-initargs
-   :tag 'dl))
+  (:metaclass xhtml-meta))
 
 (defclass elem-li (elem-global fragment)
   ((attr-type :initarg :type :accessor attr-type)
    (attr-value :initarg :value :accessor attr-value))
-  (:default-initargs
-   :tag 'li))
+  (:metaclass xhtml-meta))
 
 (defclass elem-menu (elem-global fragment)
   ((attr-compact :initarg :compact :accessor attr-compact)
    (attr-label :initarg :label :accessor attr-label)
    (attr-type :initarg :type :accessor attr-type))
-  (:default-initargs
-   :tag 'menu))
+  (:metaclass xhtml-meta))
 
 (defclass elem-ul (elem-global fragment)
   ((attr-type :initarg :type :accessor attr-type)
    (attr-compact :initarg :compact :accessor attr-compact))
-  (:default-initargs
-   :tag 'ul))
+  (:metaclass xhtml-meta))
 
 (defclass elem-ol (elem-global fragment)
   ((attr-compact :initarg :compact :accessor attr-compact)
    (attr-type :initarg :type :accessor attr-type)
    (attr-start :initarg :start :accessor attr-start)
    (attr-reversed :initarg :reversed :accessor attr-reversed))
-  (:default-initargs
-   :tag 'ol))
+  (:metaclass xhtml-meta))
 
 (defclass elem-blockquote (elem-global fragment)
   ((attr-cite :initarg :cite :accessor attr-cite))
-  (:default-initargs
-   :tag 'blockquote))
+  (:metaclass xhtml-meta))
 
 (defclass elem-pre (elem-global fragment)
   ((attr-width :initarg :width :accessor attr-width))
-  (:default-initargs
-   :tag 'pre))
+  (:metaclass xhtml-meta))
 
 (defclass elem-hr (elem-global fragment)
   ((attr-width :initarg :width :accessor attr-width)
@@ -867,75 +805,59 @@ HTML element."))
    (attr-noshade :initarg :noshade :accessor attr-noshade)
    (attr-color :initarg :color :accessor attr-color)
    (attr-align :initarg :align :accessor attr-align))
-  (:default-initargs
-   :tag 'hr))
+  (:metaclass xhtml-meta))
 
 (defclass elem-p (elem-global fragment)
   ((attr-align :initarg :align :accessor attr-align))
-  (:default-initargs
-   :tag 'p))
+  (:metaclass xhtml-meta))
 
 (defclass elem-address (elem-global fragment) ()
-  (:default-initargs
-   :tag 'address))
+  (:metaclass xhtml-meta))
 
 (defclass elem-footer (elem-global fragment) ()
-  (:default-initargs
-   :tag 'footer))
+  (:metaclass xhtml-meta))
 
 (defclass elem-header (elem-global fragment) ()
-  (:default-initargs
-   :tag 'header))
+  (:metaclass xhtml-meta))
 
 (defclass elem-hgroup (elem-global fragment) ()
-  (:default-initargs
-   :tag 'hgroup))
+  (:metaclass xhtml-meta))
 
 (defclass elem-h6 (elem-global fragment)
   ((attr-align :initarg :align :accessor attr-align))
-  (:default-initargs
-   :tag 'h6))
+  (:metaclass xhtml-meta))
 
 (defclass elem-h5 (elem-global fragment)
   ((attr-align :initarg :align :accessor attr-align))
-  (:default-initargs
-   :tag 'h5))
+  (:metaclass xhtml-meta))
 
 (defclass elem-h4 (elem-global fragment)
   ((attr-align :initarg :align :accessor attr-align))
-  (:default-initargs
-   :tag 'h4))
+  (:metaclass xhtml-meta))
 
 (defclass elem-h3 (elem-global fragment)
   ((attr-align :initarg :align :accessor attr-align))
-  (:default-initargs
-   :tag 'h3))
+  (:metaclass xhtml-meta))
 
 (defclass elem-h2 (elem-global fragment)
   ((attr-align :initarg :align :accessor attr-align))
-  (:default-initargs
-   :tag 'h2))
+  (:metaclass xhtml-meta))
 
 (defclass elem-h1 (elem-global fragment)
   ((attr-align :initarg :align :accessor attr-align))
-  (:default-initargs
-   :tag 'h1))
+  (:metaclass xhtml-meta))
 
 (defclass elem-aside (elem-global fragment) ()
-  (:default-initargs
-   :tag 'aside))
+  (:metaclass xhtml-meta))
 
 (defclass elem-nav (elem-global fragment) ()
-  (:default-initargs
-   :tag 'nav))
+  (:metaclass xhtml-meta))
 
 (defclass elem-section (elem-global fragment) ()
-  (:default-initargs
-   :tag 'section))
+  (:metaclass xhtml-meta))
 
 (defclass elem-article (elem-global fragment) ()
-  (:default-initargs
-   :tag 'article))
+  (:metaclass xhtml-meta))
 
 (defclass elem-body (elem-global fragment)
   ((attr-vlink :initarg :vlink :accessor attr-vlink)
@@ -949,16 +871,14 @@ HTML element."))
    (attr-bottommargin :initarg :bottommargin :accessor attr-bottommargin)
    (attr-bgcolor :initarg :bgcolor :accessor attr-bgcolor)
    (attr-alink :initarg :alink :accessor attr-alink))
-  (:default-initargs
-   :tag 'body))
+  (:metaclass xhtml-meta))
 
 (defclass elem-style (elem-global fragment)
   ((attr-type :initarg :type :accessor attr-type)
    (attr-title :initarg :title :accessor attr-title)
    (attr-blocking :initarg :blocking :accessor attr-blocking)
    (attr-media :initarg :media :accessor attr-media))
-  (:default-initargs
-   :tag 'style))
+  (:metaclass xhtml-meta))
 
 (defclass elem-meta (elem-global fragment)
   ((attr-scheme :initarg :scheme :accessor attr-scheme)
@@ -967,8 +887,7 @@ HTML element."))
    (attr-name :initarg :name :accessor attr-name)
    (attr-content :initarg :content :accessor attr-content)
    (attr-charset :initarg :charset :accessor attr-charset))
-  (:default-initargs
-   :tag 'meta))
+  (:metaclass xhtml-meta))
 
 (defclass elem-link (elem-global fragment)
   ((attr-target :initarg :target :accessor attr-target)
@@ -993,27 +912,22 @@ HTML element."))
    (attr-crossorigin :initarg :crossorigin :accessor attr-crossorigin)
    (attr-rel :initarg :rel :accessor attr-rel)
    (attr-href :initarg :href :accessor attr-href))
-  (:default-initargs
-   :tag 'link))
+  (:metaclass xhtml-meta))
 
 (defclass elem-base (elem-global fragment)
   ((attr-target :initarg :target :accessor attr-target)
    (attr-href :initarg :href :accessor attr-href))
-  (:default-initargs
-   :tag 'base))
+  (:metaclass xhtml-meta))
 
 (defclass elem-title (elem-global fragment) ()
-  (:default-initargs
-   :tag 'title))
+  (:metaclass xhtml-meta))
 
 (defclass elem-head (elem-global fragment)
   ((attr-profile :initarg :profile :accessor attr-profile))
-  (:default-initargs
-   :tag 'head))
+  (:metaclass xhtml-meta))
 
 (defclass elem-html (elem-global fragment)
   ((attr-version :initarg :version :accessor attr-version)
    (attr-manifest :initarg :manifest :accessor attr-manifest))
-  (:default-initargs
-   :tag 'html))
+  (:metaclass xhtml-meta))
 

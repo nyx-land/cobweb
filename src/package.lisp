@@ -1,10 +1,10 @@
 (defpackage #:cobweb
   (:use :cl)
-  (:export  :*el-tags* :with-html :with-html-write
+  (:export  :*elem-tags* :with-html :with-html-write
             :xhtml :parent :html-body :body
             :depth :html-writer :fragment
 
-;; begin autoexport at 2024-07-05T00:34:08.687779-07:00
+;; begin autoexport at 2024-07-06T18:58:53.104459-07:00
             :elem-global :attr-slot :attr-id :attr-class :attr-popovertargetaction
  :attr-popovertarget :attr-popover :attr-draggable :attr-enterkeyhint
  :attr-inputmode :attr-autocapitalize :attr-writingsuggestions :attr-spellcheck
