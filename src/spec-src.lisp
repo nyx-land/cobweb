@@ -6,10 +6,6 @@
   ((is-tag :initarg :is-tag :accessor is-tag))
   (:documentation "The HTML metaclass."))
 
-(defmethod c2mop:ensure-class-using-class :around ((class xhtml-meta) name
-                                                   &key (tag '(:elem)) &allow-other-keys)
-  (setf (is-tag (call-next-method)) (car tag)))
-
 (defmethod c2mop:validate-superclass  
     ((class xhtml-meta) (super standard-class))  
   t)
@@ -46,12 +42,12 @@
 (defmethod initialize-instance :after ((class xhtml-meta)
                                        &key (tag '(:elem)) &allow-other-keys)
   (setf (is-tag class) tag)
-  (expose-tag class tag))
+  (expose-tag class (car tag)))
 
 (defmethod reinitialize-instance :after ((class xhtml-meta)
                                          &key (tag '(:elem)) &allow-other-keys)
   (setf (is-tag class) tag)
-  (expose-tag class tag))
+  (expose-tag class (car tag)))
 
 (defclass xhtml () 
   ((parent    :initarg :parent :accessor parent)

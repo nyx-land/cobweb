@@ -6,10 +6,6 @@
   ((is-tag :initarg :is-tag :accessor is-tag))
   (:documentation "The HTML metaclass."))
 
-(defmethod c2mop:ensure-class-using-class :around ((class xhtml-meta) name
-                                                   &key (tag '(:elem)) &allow-other-keys)
-  (setf (is-tag (call-next-method)) (car tag)))
-
 (defmethod c2mop:validate-superclass  
     ((class xhtml-meta) (super standard-class))  
   t)
@@ -70,7 +66,8 @@ HTML element.")
   (:metaclass xhtml-meta)
   (:tag nil))
 
-;; begin autogenerate at 2024-07-06T18:58:53.105798-07:00
+
+;; begin autogenerate at 2024-07-06T19:12:48.751720-07:00
 (defclass elem-global (xhtml)
   ((attr-slot :initarg :slot :accessor attr-slot)
    (attr-id :initarg :id :accessor attr-id)
