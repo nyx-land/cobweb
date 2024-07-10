@@ -5,7 +5,7 @@
             :xhtml :parent :html-body :body
             :depth :html-writer :fragment
 
-;; begin autoexport at 2024-07-06T23:44:57.220411-07:00
+;; begin autoexport at 2024-07-09T19:09:44.295509-07:00
             :elem-global :attr-slot :attr-id :attr-class :attr-popovertargetaction
  :attr-popovertarget :attr-popover :attr-draggable :attr-enterkeyhint
  :attr-inputmode :attr-autocapitalize :attr-writingsuggestions :attr-spellcheck

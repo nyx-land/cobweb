@@ -11,6 +11,13 @@
                 (format nil ":ID ~s" attr-id))
               (when html-body html-body)))))
 
+(defmethod print-object ((object fragment) stream)
+  (print-unreadable-object (object stream :type t)
+    (format stream "~@[~a~]"
+            (when (slot-boundp object 'html-body)
+              (format nil "~@<~:_ ~a~:>"
+                      (html-body object))))))
+
 (defgeneric html-writer (object stream &optional indent)
   (:documentation "Write the HTML object to something.")
   (:method (object (stream stream) &optional indent)
@@ -32,21 +39,24 @@
 
 (defmethod html-writer ((object xhtml) (stream stream)
                         &optional (indent nil))
-  (let* ((tag (truncate-name object))
+  (let* ((tag (when (car (is-tag (class-of object))) (truncate-name object)))
          (slot-list (bound-slots object))
          (slot-strings (mapcar (lambda (x)
                                  (format nil "~(~a~)=~s"
                                          (cdr x)
                                          (slot-value object (car x))))
                                slot-list)))
-    (format stream "~@[~vt~]<~(~a~)~@[ ~{~a~^ ~}~]>~%"
-            indent
-            tag
-            slot-strings)
+    (when tag
+      (format stream "~@[~vt~]<~(~a~)~@[ ~{~a~^ ~}~]>~%"
+              indent
+              tag
+              slot-strings))
     (when (html-body object)
       (html-writer (html-body object) stream
-                   (if indent (+ 2 indent) 2)))
-    (format stream "~@[~vt~]</~(~a~)>~%" indent tag)))
+                   (if indent (+ 2 indent)
+                       (if tag 2 nil))))
+    (when tag
+      (format stream "~@[~vt~]</~(~a~)>~%" indent tag))))
 
 (defmethod html-writer ((object list) (stream stream)
                         &optional (indent nil))
