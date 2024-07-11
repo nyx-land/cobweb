@@ -57,9 +57,10 @@ has been initiated."))
                                            *elem-tags*)))
                       (if lookup 
                           `(apply #'make-instance
-                                  ',(read-from-string
-                                     (format nil "~:@(elem-~a~)" (car input)))
-                                  ,(rec-slots (cons (1+ (car depth)) depth) lookup (cdr input)))
+                                  ',(car lookup)
+                                  ,(rec-slots (cons (1+ (car depth)) depth)
+                                              (cdr lookup)
+                                              (cdr input)))
                           (cons (car input)
                                 (funcall #'rec depth (cdr input)))))) 
                    ((listp (car input))
