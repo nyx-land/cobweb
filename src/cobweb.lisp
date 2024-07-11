@@ -17,8 +17,7 @@ has been initiated."))
   (with-slots (coords) obj
     (setf (coords obj)
           (cons (+ index (car coords))
-                (cdr coords))))
-  (print (coords obj)))
+                (cdr coords)))))
 
 (defmethod parse-dom ((input xhtml))
   (when (and (slot-boundp input 'html-body)
@@ -54,7 +53,8 @@ has been initiated."))
              (cond ((null input) input)
                    ((atom input) input)
                    ((symbolp (car input))
-                    (let ((lookup (gethash (car input) *elem-tags*)))
+                    (let ((lookup (gethash (intern (car input) "keyword")
+                                           *elem-tags*)))
                       (if lookup 
                           `(apply #'make-instance
                                   ',(read-from-string

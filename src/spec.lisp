@@ -34,7 +34,7 @@
           collect (car (c2mop:slot-definition-initargs slot))))
 
 (defmethod expose-tag ((class xhtml-meta) (key (eql :elem)))
-  (let ((tag (read-from-string (subseq (symbol-name (class-name class)) 5))))
+  (let ((tag (intern (subseq (symbol-name (class-name class)) 5) "keyword")))
     (setf (gethash tag *elem-tags*)
           (expose-tag (c2mop:class-slots class) :add-slots))
     t))
@@ -69,7 +69,7 @@ HTML element.")
   (:tag nil))
 
 
-;; begin autogenerate at 2024-07-10T18:57:20.643642-07:00
+;; begin autogenerate at 2024-07-10T21:18:01.035335-07:00
 (defclass elem-global (xhtml)
   ((attr-slot :initarg :slot :accessor attr-slot)
    (attr-id :initarg :id :accessor attr-id)
