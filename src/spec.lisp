@@ -56,7 +56,6 @@
   (:metaclass xhtml-meta)
   (:tag nil)
   (:default-initargs
-   :coords (list 0)
    :parent :root))
 
 (defclass fragment (xhtml) ()
@@ -70,7 +69,7 @@ HTML element.")
   (:tag nil))
 
 
-;; begin autogenerate at 2024-07-09T19:09:44.297037-07:00
+;; begin autogenerate at 2024-07-10T18:57:20.643642-07:00
 (defclass elem-global (xhtml)
   ((attr-slot :initarg :slot :accessor attr-slot)
    (attr-id :initarg :id :accessor attr-id)

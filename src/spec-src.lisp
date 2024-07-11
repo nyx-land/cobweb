@@ -56,7 +56,6 @@
   (:metaclass xhtml-meta)
   (:tag nil)
   (:default-initargs
-   :coords (list 0)
    :parent :root))
 
 (defclass fragment (xhtml) ()

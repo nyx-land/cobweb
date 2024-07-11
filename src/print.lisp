@@ -39,24 +39,27 @@
 
 (defmethod html-writer ((object xhtml) (stream stream)
                         &optional (indent nil))
+  ;; TODO: make less ugly
   (let* ((tag (when (car (is-tag (class-of object))) (truncate-name object)))
          (slot-list (bound-slots object))
          (slot-strings (mapcar (lambda (x)
-                                 (format nil "~(~a~)=~s"
+                                 (format nil "~(~a~)=\"~a\""
                                          (cdr x)
                                          (slot-value object (car x))))
                                slot-list)))
     (when tag
-      (format stream "~@[~vt~]<~(~a~)~@[ ~{~a~^ ~}~]>~%"
+      (format stream "~@[~vt~]<~(~a~)~@[ ~{~a~^ ~}~]>"
               indent
               tag
               slot-strings))
     (when (html-body object)
+      (format stream "~%")
       (html-writer (html-body object) stream
                    (if indent (+ 2 indent)
-                       (if tag 2 nil))))
+                       (if tag 2 nil)))
+      (format stream "~@[~vt~]" indent))
     (when tag
-      (format stream "~@[~vt~]</~(~a~)>~%" indent tag))))
+      (format stream "</~(~a~)>~%" tag))))
 
 (defmethod html-writer ((object list) (stream stream)
                         &optional (indent nil))

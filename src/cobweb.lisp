@@ -12,26 +12,28 @@ has been initiated."))
                                        &key &allow-other-keys)
   (parse-dom object))
 
-(defmethod set-hierarchy ((obj xhtml) (parent xhtml) (index integer))
+(defmethod set-hierarchy ((obj xhtml) (parent xhtml) (index float))
   (setf (parent obj) parent)
-  (setf (coords parent)
-        (list (1+ (car (coords obj)))))
-  (setf (coords obj) (cons index (coords obj))))
-
+  (with-slots (coords) obj
+    (setf (coords obj)
+          (cons (+ index (car coords))
+                (cdr coords))))
+  (print (coords obj)))
 
 (defmethod parse-dom ((input xhtml))
-  (when (slot-boundp input 'html-body)
+  (when (and (slot-boundp input 'html-body)
+             (not (null (html-body input))))
     (loop for x across (html-body input)
-          as i = 0 then (incf i)
+          as i = 0.0 then (+ i 0.1)
           do (set-hierarchy x input i)))
-  ;; (format t "~a: ~a~%"
-  ;;         (class-name (class-of input))
-  ;;         (coords input))
   input)
 
 (defun make-body (input &optional (out nil))
   ;; TODO: ugly inefficient hack
-  (cond ((null input) (apply #'vector (reverse out)))
+  (cond ((null input)
+         (if (null out)
+             nil
+             (apply #'vector (reverse out))))
         ((listp (car input))
          (make-body (append (pop input) input)
                     out))
@@ -39,13 +41,16 @@ has been initiated."))
                       (cons (car input) out)))))
 
 (defun sexp-parse (input)
-  (labels ((rec-slots (slots ls &optional (set-slots nil))
+  (labels ((rec-slots (depth slots ls &optional (set-slots nil))
              (if (member (car ls) slots)
-                 (rec-slots slots (cddr ls)
+                 (rec-slots depth slots (cddr ls)
                             (cons (car ls)
                                   (cons (cadr ls) set-slots)))
-                 `(list ,@set-slots :body (make-body (list ,@(rec ls))))))
-           (rec (input)
+                 `(list ,@set-slots
+                        :coords ',depth
+                        :body (make-body
+                               (list ,@(funcall #'rec depth ls))))))
+           (rec (depth input)
              (cond ((null input) input)
                    ((atom input) input)
                    ((symbolp (car input))
@@ -54,20 +59,20 @@ has been initiated."))
                           `(apply #'make-instance
                                   ',(read-from-string
                                      (format nil "~:@(elem-~a~)" (car input)))
-                                  ,(rec-slots lookup (cdr input)))
+                                  ,(rec-slots (cons (1+ (car depth)) depth) lookup (cdr input)))
                           (cons (car input)
-                                (mapcar #'rec (cdr input)))))) 
+                                (funcall #'rec depth (cdr input)))))) 
                    ((listp (car input))
-                    (cons (rec (car input))
-                          (mapcar #'rec (cdr input))))
+                    (cons (funcall #'rec depth (car input))
+                          (funcall #'rec depth (cdr input))))
                    (t (cons (car input)
-                            (mapcar #'rec (cdr input)))))))
-    (rec input)))
+                            (funcall #'rec depth (cdr input)))))))
+    (funcall #'rec (list 0.0) input)))
 
 (defmacro with-html (&body body)
-  `(make-instance
-    'fragment
-    :body (vector ,@(sexp-parse body))))
+  `(make-instance 'fragment
+                  :coords '(0.0)
+                  :body (vector ,@(sexp-parse body))))
 
 (defmacro with-html-write (stream &body body)
   `(let ((html (with-html ,@body)))
