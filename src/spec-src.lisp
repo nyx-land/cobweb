@@ -34,7 +34,7 @@
           collect (car (c2mop:slot-definition-initargs slot))))
 
 (defmethod expose-tag ((class xhtml-meta) (key (eql :elem)))
-  (let ((tag (intern (subseq (symbol-name (class-name class)) 5) "keyword")))
+  (let ((tag (intern (subseq (symbol-name (class-name class)) 5) :keyword)))
     (setf (gethash tag *elem-tags*)
           (expose-tag (c2mop:class-slots class) :add-slots))
     t))
