@@ -53,7 +53,7 @@ has been initiated."))
              (cond ((null input) input)
                    ((atom input) input)
                    ((symbolp (car input))
-                    (let ((lookup (gethash (intern (car input) "keyword")
+                    (let ((lookup (gethash (intern (symbol-name (car input)) :keyword)
                                            *elem-tags*)))
                       (if lookup 
                           `(apply #'make-instance
