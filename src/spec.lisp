@@ -2,12 +2,12 @@
 
 (defparameter *elem-tags* (make-hash-table))
 
-(defclass xhtml-meta (standard-class)
+(defclass xhtml-meta (c2mop:funcallable-standard-class)
   ((is-tag :initarg :is-tag :accessor is-tag))
   (:documentation "The HTML metaclass."))
 
 (defmethod c2mop:validate-superclass  
-    ((class xhtml-meta) (super standard-class))  
+    ((class xhtml-meta) (super c2mop:funcallable-standard-class))  
   t)
 
 (c2mop:ensure-finalized (find-class 'xhtml-meta))
@@ -70,7 +70,7 @@ HTML element.")
   (:tag nil))
 
 
-;; begin autogenerate at 2024-07-10T21:18:01.035335-07:00
+;; begin autogenerate at 2024-07-12T17:39:35.475355-07:00
 (defclass elem-global (xhtml)
   ((attr-slot :initarg :slot :accessor attr-slot)
    (attr-id :initarg :id :accessor attr-id)

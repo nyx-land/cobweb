@@ -2,12 +2,12 @@
 
 (defparameter *elem-tags* (make-hash-table))
 
-(defclass xhtml-meta (standard-class)
+(defclass xhtml-meta (c2mop:funcallable-standard-class)
   ((is-tag :initarg :is-tag :accessor is-tag))
   (:documentation "The HTML metaclass."))
 
 (defmethod c2mop:validate-superclass  
-    ((class xhtml-meta) (super standard-class))  
+    ((class xhtml-meta) (super c2mop:funcallable-standard-class))  
   t)
 
 (c2mop:ensure-finalized (find-class 'xhtml-meta))

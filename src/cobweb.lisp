@@ -8,6 +8,10 @@
   (:documentation "Parses the DOM at each node after an element 
 has been initiated."))
 
+(defgeneric render (input &key &allow-other-keys)
+  (:documentation "Describes how to render an object possibly by applying some
+transformations to return the XHTML tree."))
+
 (defmethod initialize-instance :after ((object xhtml)
                                        &key &allow-other-keys)
   (parse-dom object))
@@ -25,6 +29,17 @@ has been initiated."))
     (loop for x across (html-body input)
           as i = 0.0 then (+ i 0.1)
           do (set-hierarchy x input i)))
+  input)
+
+(defmethod render ((input xhtml-meta) &key &allow-other-keys)
+  input
+  ;; (apply #'make-instance (class-name input)
+  ;;        (cons :coords
+  ;;              (cons coords
+  ;;                    slots)))
+  )
+
+(defmethod render ((input xhtml) &key &allow-other-keys)
   input)
 
 (defun make-body (input &optional (out nil))
@@ -45,22 +60,24 @@ has been initiated."))
                  (rec-slots depth slots (cddr ls)
                             (cons (car ls)
                                   (cons (cadr ls) set-slots)))
-                 `(list ,@set-slots
-                        :coords ',depth
-                        :body (make-body
-                               (list ,@(funcall #'rec depth ls))))))
+                 `(,@set-slots
+                   :body (make-body
+                          (list ,@(funcall #'rec depth ls))))))
            (rec (depth input)
              (cond ((null input) input)
                    ((atom input) input)
                    ((symbolp (car input))
                     (let ((lookup (gethash (intern (symbol-name (car input)) :keyword)
-                                           *elem-tags*)))
-                      (if lookup 
-                          `(apply #'make-instance
-                                  ',(car lookup)
-                                  ,(rec-slots (cons (1+ (car depth)) depth)
-                                              (cdr lookup)
-                                              (cdr input)))
+                                           *elem-tags*))
+                          (c+1 (cons (1+ (car depth)) depth)))
+                      (if lookup
+                          `(render (funcall #'make-instance
+                                            ',(car lookup)
+                                            :coords ',c+1
+                                            ,@(rec-slots
+                                               c+1
+                                               (cdr lookup)
+                                               (cdr input))))
                           (cons (car input)
                                 (funcall #'rec depth (cdr input)))))) 
                    ((listp (car input))
@@ -71,9 +88,11 @@ has been initiated."))
     (funcall #'rec (list 0.0) input)))
 
 (defmacro with-html (&body body)
-  `(make-instance 'fragment
-                  :coords '(0.0)
-                  :body (vector ,@(sexp-parse body))))
+  `(progn ,@(sexp-parse body))
+  ;;  `(make-instance 'fragment
+  ;;                :coords '(0.0)
+  ;;                :body (vector ,@(sexp-parse body)))
+  )
 
 (defmacro with-html-write (stream &body body)
   `(let ((html (with-html ,@body)))
