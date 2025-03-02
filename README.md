@@ -1,12 +1,12 @@
-- [Cobweb 🕸](#org28544dc)
-  - [Why would I want this?](#org35a0bda)
-  - [Installation](#org0bc615b)
-  - [Usage](#org675951f)
-  - [Generating the Spec](#org6ceb3cf)
-  - [Potential Improvements](#org0ef3a80)
+- [Cobweb 🕸](#org9fe2fd4)
+  - [Why would I want this?](#orgb0aae2c)
+  - [Installation](#orga6dd457)
+  - [Usage](#org8bf8eaa)
+- [A Note on `COBWEB-GEN`](#org5f6a2c0)
+- [Potential Improvements](#orgecda9eb)
 
 
-<a id="org28544dc"></a>
+<a id="org9fe2fd4"></a>
 
 # Cobweb 🕸
 
@@ -17,21 +17,21 @@ Unlike the other sexp emitters that currently exist for CL, Cobweb isn't just a 
 Cobweb also has the advantage of being generated from the W3 spec rather than at the discretion of the implementer or by relying on a simple non-validating macro system. It turns out that it's rather trivial to do this thanks to the machine-readable version that W3 provides, and with how important backwards-compatibility is for the web it's unlikely that it'll change drastically anytime soon.
 
 
-<a id="org35a0bda"></a>
+<a id="orgb0aae2c"></a>
 
 ## Why would I want this?
 
 You may not have any use case for this and be better off with Spinneret or CL-WHO, but for my own purposes, I wanted to be able to implement some fancy features for Cobweb's sister project Widow and being able to use the MOP seemed like the best way to do it.
 
 
-<a id="org0bc615b"></a>
+<a id="orga6dd457"></a>
 
 ## Installation
 
 You will need to clone this [somewhere that ASDF can find it](https://asdf.common-lisp.dev/asdf.html#Configuring-ASDF-to-find-your-systems), unless I decide this project is good enough to submit to Quicklisp.
 
 
-<a id="org675951f"></a>
+<a id="org8bf8eaa"></a>
 
 ## Usage
 
@@ -165,16 +165,30 @@ CL-USER>
 `HTML-WRITER` is a method and can be customized like any other method to control how the HTML is printed. By default it'll pretty-print as best I could figure out how to do using `FORMAT`.
 
 
-<a id="org6ceb3cf"></a>
+<a id="org5f6a2c0"></a>
 
-## Generating the Spec
+# A Note on `COBWEB-GEN`
 
-`COBWEB-GEN` does technically work but it's still pretty hacky and bad so I wouldn't recommend touching it right now.
+`COBWEB-GEN` does technically work but it's still pretty hacky and bad so I wouldn't recommend touching it right now. However, if you really must regenerate the spec (if perhaps you've made changes to `spec-src.lisp` or `package-src.lisp`), you can do the following:
+
+```common-lisp
+CL-USER> (ql:quickload :cobweb-gen)
+To load "cobweb-gen":
+  Load 1 ASDF system:
+    cobweb-gen
+; Loading "cobweb-gen"
+..................
+(:COBWEB-GEN)
+CL-USER> (in-package :cobweb-gen)
+#<PACKAGE "COBWEB-GEN">
+COBWEB-GEN> (write-files (get-spec))
+T
+```
 
 
-<a id="org0ef3a80"></a>
+<a id="orgecda9eb"></a>
 
-## Potential Improvements
+# Potential Improvements
 
 -   Fix `COBWEB-GEN` bugs
 -   Add some utilities to walk through the DOM

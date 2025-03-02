@@ -1,3 +1,10 @@
+#+begin_src elisp :exports "none"
+(org-gfm-export-to-markdown)
+#+end_src
+
+#+RESULTS:
+: README.md
+
 * Cobweb 🕸
 
 Cobweb is yet another sexp->HTML emitter library for Common Lisp, but
@@ -172,12 +179,28 @@ CL-USER>
 to control how the HTML is printed. By default it'll pretty-print as
 best I could figure out how to do using =FORMAT=.
 
-** Generating the Spec
+* A Note on =COBWEB-GEN=
 
 =COBWEB-GEN= does technically work but it's still pretty hacky and bad
-so I wouldn't recommend touching it right now.
+so I wouldn't recommend touching it right now. However, if you really
+must regenerate the spec (if perhaps you've made changes to
+=spec-src.lisp= or =package-src.lisp=), you can do the following:
 
-** Potential Improvements
+#+begin_src common-lisp
+CL-USER> (ql:quickload :cobweb-gen)
+To load "cobweb-gen":
+  Load 1 ASDF system:
+    cobweb-gen
+; Loading "cobweb-gen"
+..................
+(:COBWEB-GEN)
+CL-USER> (in-package :cobweb-gen)
+#<PACKAGE "COBWEB-GEN">
+COBWEB-GEN> (write-files (get-spec))
+T
+#+end_src
+
+* Potential Improvements
 
 - Fix =COBWEB-GEN= bugs
 - Add some utilities to walk through the DOM
