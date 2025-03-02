@@ -1,6 +1,7 @@
 (defpackage #:cobweb-gen
   (:use :cl)
-  (:local-nicknames (:jzon :com.inuoe.jzon)))
+  (:local-nicknames (:jzon :com.inuoe.jzon))
+  (:export :get-spec :write-files))
 
 (in-package :cobweb-gen)
 
@@ -135,5 +136,5 @@
     (close package-out)
     (close spec-out)))
 
-
-
+(defun main ()
+  (write-files (get-spec)))
