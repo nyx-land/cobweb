@@ -1,17 +1,20 @@
 (defpackage #:cobweb
   (:use :cl)
-  (:export  :*elem-tags* :with-html :with-html-write
-            :xhtml-meta :is-tag :expose-tag
-            :xhtml :parent :html-body :body
-            :depth :html-writer :fragment
+  (:export :*elem-tags* :xhtml-meta :fragment-meta
+           :fragment-layout :is-tag :expose-tag
+           :sexp-parse :render
+           :with-html :with-html-write
+           :xhtml :parent :html-body :body
+           :depth :html-writer :fragment
 
-;; begin autoexport at 2024-07-10T21:18:01.033949-07:00
+;; begin autoexport at 2025-02-23T03:53:04.329323-08:00
             :elem-global :attr-slot :attr-id :attr-class :attr-popovertargetaction
  :attr-popovertarget :attr-popover :attr-draggable :attr-enterkeyhint
- :attr-inputmode :attr-autocapitalize :attr-writingsuggestions :attr-spellcheck
- :attr-contenteditable :attr-accesskey :attr-autofocus :attr-hidden
- :attr-itemprop :attr-itemref :attr-itemid :attr-itemtype :attr-itemscope
- :attr-is :attr-style :attr-dir :attr-translate :attr-lang :attr-title
+ :attr-inputmode :attr-autocorrect :attr-autocapitalize
+ :attr-writingsuggestions :attr-spellcheck :attr-contenteditable
+ :attr-accesskey :attr-autofocus :attr-hidden :attr-itemprop :attr-itemref
+ :attr-itemid :attr-itemtype :attr-itemscope :attr-is :attr-style :attr-dir
+ :attr-translate :attr-lang :attr-title
             :elem-frame
             :elem-frameset
             :elem-marquee :attr-loop :attr-truespeed :attr-direction :attr-behavior
@@ -49,7 +52,7 @@
             :elem-script :attr-for :attr-event :attr-language :attr-charset
  :attr-fetchpriority :attr-blocking :attr-referrerpolicy :attr-integrity
  :attr-crossorigin :attr-defer :attr-async :attr-nomodule :attr-src :attr-type
-            :elem-dialog :attr-open
+            :elem-dialog :attr-closedby :attr-open
             :elem-summary
             :elem-details :attr-open :attr-name
             :elem-legend :attr-align
@@ -70,13 +73,13 @@
             :elem-button :attr-autocomplete :attr-formnovalidate :attr-novalidate
  :attr-formtarget :attr-target :attr-formenctype :attr-enctype :attr-formmethod
  :attr-method :attr-formaction :attr-action :attr-disabled :attr-name
- :attr-form :attr-value :attr-type
+ :attr-form :attr-value :attr-command :attr-commandfor :attr-type
             :elem-input :attr-vspace :attr-hspace :attr-border :attr-align :attr-usemap
  :attr-ismap :attr-autocomplete :attr-disabled :attr-minlength :attr-maxlength
  :attr-dirname :attr-name :attr-form :attr-placeholder :attr-list :attr-step
  :attr-max :attr-min :attr-title :attr-pattern :attr-multiple :attr-required
  :attr-readonly :attr-size :attr-minlength :attr-maxlength :attr-alt :attr-src
- :attr-accept :attr-checked :attr-value :attr-type
+ :attr-accept :attr-colorspace :attr-alpha :attr-checked :attr-value :attr-type
             :elem-label :attr-for
             :elem-form :attr-accept :attr-formnovalidate :attr-novalidate :attr-formtarget
  :attr-target :attr-formenctype :attr-enctype :attr-formmethod :attr-method

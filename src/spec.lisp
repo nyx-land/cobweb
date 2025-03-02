@@ -6,11 +6,20 @@
   ((is-tag :initarg :is-tag :accessor is-tag))
   (:documentation "The HTML metaclass."))
 
+;; TODO: this precedence is awkward
+(defclass fragment-meta (xhtml-meta)
+  ((layout :initarg :layout :accessor fragment-layout)))
+
 (defmethod c2mop:validate-superclass  
     ((class xhtml-meta) (super c2mop:funcallable-standard-class))  
   t)
 
+(defmethod c2mop:validate-superclass  
+    ((class fragment-meta) (super xhtml-meta))  
+  t)
+
 (c2mop:ensure-finalized (find-class 'xhtml-meta))
+(c2mop:ensure-finalized (find-class 'fragment-meta))
 
 (defgeneric expose-tag (class key)
   (:documentation "Describes how to make a class parseable."))
@@ -50,27 +59,27 @@
   (setf (is-tag class) tag)
   (expose-tag class (car tag)))
 
-(defclass xhtml () 
+(defclass fragment ()
   ((parent    :initarg :parent :accessor parent)
    (coords    :initarg :coords :accessor coords)
    (html-body :initarg :body   :accessor html-body))
+  (:metaclass fragment-meta)
+  (:documentation "An abstract middleware class between XHTML and every
+HTML element.")
+  (:tag nil))
+
+(defclass xhtml (fragment) ()
   (:metaclass xhtml-meta)
   (:tag nil)
   (:default-initargs
    :parent :root))
-
-(defclass fragment (xhtml) ()
-  (:metaclass xhtml-meta)
-  (:documentation "An abstract middleware class between XHTML and every
-HTML element.")
-  (:tag nil))
 
 (defclass non-conforming-features () ()
   (:metaclass xhtml-meta)
   (:tag nil))
 
 
-;; begin autogenerate at 2024-07-12T17:39:35.475355-07:00
+;; begin autogenerate at 2025-02-23T03:53:04.330774-08:00
 (defclass elem-global (xhtml)
   ((attr-slot :initarg :slot :accessor attr-slot)
    (attr-id :initarg :id :accessor attr-id)
@@ -81,6 +90,7 @@ HTML element.")
    (attr-draggable :initarg :draggable :accessor attr-draggable)
    (attr-enterkeyhint :initarg :enterkeyhint :accessor attr-enterkeyhint)
    (attr-inputmode :initarg :inputmode :accessor attr-inputmode)
+   (attr-autocorrect :initarg :autocorrect :accessor attr-autocorrect)
    (attr-autocapitalize :initarg :autocapitalize :accessor attr-autocapitalize)
    (attr-writingsuggestions :initarg :writingsuggestions :accessor attr-writingsuggestions)
    (attr-spellcheck :initarg :spellcheck :accessor attr-spellcheck)
@@ -230,7 +240,8 @@ HTML element.")
   (:metaclass xhtml-meta))
 
 (defclass elem-dialog (elem-global fragment)
-  ((attr-open :initarg :open :accessor attr-open))
+  ((attr-closedby :initarg :closedby :accessor attr-closedby)
+   (attr-open :initarg :open :accessor attr-open))
   (:metaclass xhtml-meta))
 
 (defclass elem-summary (elem-global fragment) ()
@@ -332,6 +343,8 @@ HTML element.")
    (attr-name :initarg :name :accessor attr-name)
    (attr-form :initarg :form :accessor attr-form)
    (attr-value :initarg :value :accessor attr-value)
+   (attr-command :initarg :command :accessor attr-command)
+   (attr-commandfor :initarg :commandfor :accessor attr-commandfor)
    (attr-type :initarg :type :accessor attr-type))
   (:metaclass xhtml-meta))
 
@@ -363,6 +376,8 @@ HTML element.")
    (attr-alt :initarg :alt :accessor attr-alt)
    (attr-src :initarg :src :accessor attr-src)
    (attr-accept :initarg :accept :accessor attr-accept)
+   (attr-colorspace :initarg :colorspace :accessor attr-colorspace)
+   (attr-alpha :initarg :alpha :accessor attr-alpha)
    (attr-checked :initarg :checked :accessor attr-checked)
    (attr-value :initarg :value :accessor attr-value)
    (attr-type :initarg :type :accessor attr-type))

@@ -6,11 +6,20 @@
   ((is-tag :initarg :is-tag :accessor is-tag))
   (:documentation "The HTML metaclass."))
 
+;; TODO: this precedence is awkward
+(defclass fragment-meta (xhtml-meta)
+  ((layout :initarg :layout :accessor fragment-layout)))
+
 (defmethod c2mop:validate-superclass  
     ((class xhtml-meta) (super c2mop:funcallable-standard-class))  
   t)
 
+(defmethod c2mop:validate-superclass  
+    ((class fragment-meta) (super xhtml-meta))  
+  t)
+
 (c2mop:ensure-finalized (find-class 'xhtml-meta))
+(c2mop:ensure-finalized (find-class 'fragment-meta))
 
 (defgeneric expose-tag (class key)
   (:documentation "Describes how to make a class parseable."))
@@ -50,20 +59,20 @@
   (setf (is-tag class) tag)
   (expose-tag class (car tag)))
 
-(defclass xhtml () 
+(defclass fragment ()
   ((parent    :initarg :parent :accessor parent)
    (coords    :initarg :coords :accessor coords)
    (html-body :initarg :body   :accessor html-body))
+  (:metaclass fragment-meta)
+  (:documentation "An abstract middleware class between XHTML and every
+HTML element.")
+  (:tag nil))
+
+(defclass xhtml (fragment) ()
   (:metaclass xhtml-meta)
   (:tag nil)
   (:default-initargs
    :parent :root))
-
-(defclass fragment (xhtml) ()
-  (:metaclass xhtml-meta)
-  (:documentation "An abstract middleware class between XHTML and every
-HTML element.")
-  (:tag nil))
 
 (defclass non-conforming-features () ()
   (:metaclass xhtml-meta)
