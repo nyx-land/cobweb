@@ -31,14 +31,6 @@ transformations to return the XHTML tree."))
           do (set-hierarchy x input i)))
   input)
 
-(defmethod render ((input xhtml-meta) &key &allow-other-keys)
-  input
-  ;; (apply #'make-instance (class-name input)
-  ;;        (cons :coords
-  ;;              (cons coords
-  ;;                    slots)))
-  )
-
 (defmethod render ((input xhtml) &key &allow-other-keys)
   input)
 
@@ -54,7 +46,7 @@ transformations to return the XHTML tree."))
         (t (make-body (cdr input)
                       (cons (car input) out)))))
 
-(defun sexp-parse (input)
+(defun sexp-parse (input &optional (table *elem-tags*))
   (labels ((rec-slots (depth slots ls &optional (set-slots nil))
              (if (member (car ls) slots)
                  (rec-slots depth slots (cddr ls)
@@ -68,7 +60,7 @@ transformations to return the XHTML tree."))
                    ((atom input) input)
                    ((symbolp (car input))
                     (let ((lookup (gethash (intern (symbol-name (car input)) :keyword)
-                                           *elem-tags*))
+                                           table))
                           (c+1 (cons (1+ (car depth)) depth)))
                       (if lookup
                           `(render (funcall #'make-instance
@@ -88,11 +80,7 @@ transformations to return the XHTML tree."))
     (funcall #'rec (list 0.0) input)))
 
 (defmacro with-html (&body body)
-  `(progn ,@(sexp-parse body))
-  ;;  `(make-instance 'fragment
-  ;;                :coords '(0.0)
-  ;;                :body (vector ,@(sexp-parse body)))
-  )
+  `(progn ,@(sexp-parse body)))
 
 (defmacro with-html-write (stream &body body)
   `(let ((html (with-html ,@body)))
