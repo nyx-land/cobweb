@@ -21,6 +21,19 @@
 (c2mop:ensure-finalized (find-class 'xhtml-meta))
 (c2mop:ensure-finalized (find-class 'fragment-meta))
 
+(defmacro deftag (name &rest attrs)
+  `(let ((class-name ',(read-from-string
+                        (format nil "~@:(elem-~a~)"
+                                name))))
+     (defmacro ,name ((&key ,@attrs) &body body)
+       `(apply #'make-instance ',class-name
+               :body (vector ,@body)
+               ',(mapcan (lambda (x)
+                           (when (cadr x)
+                             (list (slotkey (car x))
+                                   (cadr x))))
+                         ,(getattrs attrs))))))
+
 (defgeneric expose-tag (class key)
   (:documentation "Describes how to make a class parseable."))
 
@@ -79,7 +92,7 @@ HTML element.")
   (:tag nil))
 
 
-;; begin autogenerate at 2025-02-23T03:53:04.330774-08:00
+;; begin autogenerate at 2025-03-03T20:24:26.925795-08:00
 (defclass elem-global (xhtml)
   ((attr-slot :initarg :slot :accessor attr-slot)
    (attr-id :initarg :id :accessor attr-id)

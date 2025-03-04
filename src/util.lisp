@@ -14,3 +14,13 @@
                                       :key #'car)))
       (remove-if-not (lambda (x) (slot-boundp object (car x)))
                      slot-list))))
+
+(defun slotkey (x)
+  (intern (string x) :keyword))
+
+(defun getattrs (attrs)
+  (cons 'list
+        (mapcar (lambda (x)
+                  `(list ,(slotkey x)
+                         `,,x))
+                attrs)))
