@@ -26,17 +26,11 @@
                         (format nil "~@:(elem-~a~)"
                                 name))))
      (defmacro ,name (&body body)
-       `(with-attrs ,body ,',attrs
-          (values attrs body)))
-     ;; (defmacro ,name ((&key ,@attrs) &body body)
-     ;;   `(apply #'make-instance ',class-name
-     ;;           :body (vector ,@body)
-     ;;           ',(mapcan (lambda (x)
-     ;;                       (when (cadr x)
-     ;;                         (list (slotkey (car x))
-     ;;                               (cadr x))))
-     ;;                     ,(getattrs attrs))))
-     ))
+       `(destructuring-bind (&key attrs body)
+            ',(parse-attrs body ',attrs)
+          (apply #'make-instance ',class-name
+                 :body (apply #'vector body)
+                 attrs)))))
 
 (defgeneric expose-tag (class key)
   (:documentation "Describes how to make a class parseable."))
