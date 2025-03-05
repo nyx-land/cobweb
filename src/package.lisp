@@ -2,12 +2,12 @@
   (:use :cl)
   (:export :*elem-tags* :xhtml-meta :fragment-meta
            :fragment-layout :is-tag :expose-tag
-           :sexp-parse :render
+           :sexp-parse :render :deftag
            :with-html :with-html-write
            :xhtml :parent :html-body :body
            :depth :html-writer :fragment
 
-;; begin autoexport at 2025-03-03T20:24:26.924262-08:00
+;; begin autoexport at 2025-03-04T18:36:32.284596-08:00
             :elem-global :attr-slot :attr-id :attr-class :attr-popovertargetaction
  :attr-popovertarget :attr-popover :attr-draggable :attr-enterkeyhint
  :attr-inputmode :attr-autocorrect :attr-autocapitalize

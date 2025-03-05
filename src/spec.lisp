@@ -25,14 +25,12 @@
   `(let ((class-name ',(read-from-string
                         (format nil "~@:(elem-~a~)"
                                 name))))
-     (defmacro ,name ((&key ,@attrs) &body body)
-       `(apply #'make-instance ',class-name
-               :body (vector ,@body)
-               ',(mapcan (lambda (x)
-                           (when (cadr x)
-                             (list (slotkey (car x))
-                                   (cadr x))))
-                         ,(getattrs attrs))))))
+     (defmacro ,name (&body body)
+       `(destructuring-bind (&key attrs body)
+            ',(parse-attrs body ',attrs)
+          (apply #'make-instance ',class-name
+                 :body (apply #'vector body)
+                 attrs)))))
 
 (defgeneric expose-tag (class key)
   (:documentation "Describes how to make a class parseable."))
@@ -92,7 +90,7 @@ HTML element.")
   (:tag nil))
 
 
-;; begin autogenerate at 2025-03-03T20:24:26.925795-08:00
+;; begin autogenerate at 2025-03-04T18:36:32.284619-08:00
 (defclass elem-global (xhtml)
   ((attr-slot :initarg :slot :accessor attr-slot)
    (attr-id :initarg :id :accessor attr-id)
