@@ -21,21 +21,20 @@
 (c2mop:ensure-finalized (find-class 'xhtml-meta))
 (c2mop:ensure-finalized (find-class 'fragment-meta))
 
-(defmacro deftag (name)
+(defmacro foobar (&key bar &allow-other-keys &body body)
+  `(progn ,foo ,@body))
+
+(defmacro define-xhtml (name attrs)
   `(let* ((class-name ',(read-from-string
                          (format nil "~@:(elem-~a~)"
                                  name)))
           (attrs (expose-tag (c2mop:class-slots (find-class class-name))
                              :add-slots)))
+     ;; TODO: figure out how to compile `ATTRS' into the
+     ;; generated macro's lambda-list
      (defmacro ,name (&body body)
-       ;; TODO: nested macros aren't evaluating
-       `(macrolet ((rec (body)
-                     (list ,@body)))
-          (destructuring-bind (&key attrs body)
-              ',(parse-attrs body attrs)
-            (apply #'make-instance ',class-name
-                   :body ,`(apply #'vector (rec ,@body))
-                   attrs))))))
+       `(render (apply #'make-instance ',class-name
+                       ,(parse-attrs body attrs))))))
 
 (defgeneric expose-tag (class key)
   (:documentation "Describes how to make a class parseable."))
@@ -56,7 +55,7 @@
   (loop for slot in slots
         as slot-name = (symbol-name (c2mop:slot-definition-name slot))
         when (search "ATTR-" slot-name)
-          collect (car (c2mop:slot-definition-initargs slot))))
+          collect (read-from-string (symbol-name (car (c2mop:slot-definition-initargs slot))))))
 
 (defmethod expose-tag ((class xhtml-meta) (key (eql :elem)))
   (let ((tag (intern (subseq (symbol-name (class-name class)) 5) :keyword)))
