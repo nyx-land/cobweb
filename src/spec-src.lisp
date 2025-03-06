@@ -21,16 +21,21 @@
 (c2mop:ensure-finalized (find-class 'xhtml-meta))
 (c2mop:ensure-finalized (find-class 'fragment-meta))
 
-(defmacro deftag (name &rest attrs)
-  `(let ((class-name ',(read-from-string
-                        (format nil "~@:(elem-~a~)"
-                                name))))
+(defmacro deftag (name)
+  `(let* ((class-name ',(read-from-string
+                         (format nil "~@:(elem-~a~)"
+                                 name)))
+          (attrs (expose-tag (c2mop:class-slots (find-class class-name))
+                             :add-slots)))
      (defmacro ,name (&body body)
-       `(destructuring-bind (&key attrs body)
-            ',(parse-attrs body ',attrs)
-          (apply #'make-instance ',class-name
-                 :body (apply #'vector body)
-                 attrs)))))
+       ;; TODO: nested macros aren't evaluating
+       `(macrolet ((rec (body)
+                     (list ,@body)))
+          (destructuring-bind (&key attrs body)
+              ',(parse-attrs body attrs)
+            (apply #'make-instance ',class-name
+                   :body ,`(apply #'vector (rec ,@body))
+                   attrs))))))
 
 (defgeneric expose-tag (class key)
   (:documentation "Describes how to make a class parseable."))
