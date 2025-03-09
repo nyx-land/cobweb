@@ -1,7 +1,7 @@
 (defpackage #:cobweb-gen
   (:use :cl)
   (:local-nicknames (:jzon :com.inuoe.jzon))
-  (:export :get-spec :write-files))
+  (:export :main))
 
 (in-package :cobweb-gen)
 
@@ -54,87 +54,56 @@
                     (push k (gethash :elements filtered)))))
     filtered))
 
-(defun write-attrs (attrs)
-  (when attrs
-    (loop for tag in attrs
-          collect (format nil "attr-~a :initarg :~a :accessor attr-~a"
-                          tag tag tag))))
+(defun make-syms (attrs)
+  (mapcar #'read-from-string attrs))
 
+(defun collect-exports (elem attrs)
+  (flet ((to-key (x)
+           (intern x :keyword)))
+    `(,(to-key (symbol-name elem))
+      ,(to-key (format nil "~@:(elem-~a~)" elem))
+      ,@(loop for x in attrs
+              collect (to-key (format nil "~@:(attr-~a~)" x))))))
 
-(defun write-class (name super attrs &optional non-tag (stream nil))
-  (let ((attr-strings (write-attrs attrs)))
-    (format stream "(defclass ~(elem-~a~) (~@[~{~(~a~)~^ ~}~])~:[ ()~;~]~@[
-  (~{(~a)~^~%   ~})~]
-  (:metaclass xhtml-meta)~@[
-  (:tag nil)~])~%~%"
-            name super
-            attr-strings
-            attr-strings
-            non-tag)))
-
-(defun export-attr (attr)
-  (make-exportable
-   (format nil "attr-~a" attr)))
-
-(defun write-exports (tag for-attrs &optional (stream nil))
-  (format stream "~12t~a~%"
-          (string-trim '(#\( #\))
-                       (format nil "~@<~(~s~)~:@>"
-                               (alexandria:flatten
-                                (list (make-exportable (format nil "elem-~a" tag))
-                                      (mapcar #'export-attr for-attrs)))))))
-
-(defun write-spec (f-spec &optional (c-stream nil) (p-stream nil))
+(defun collect-defs (f-spec)
   (let* ((elems (gethash :elements f-spec))
          (for-attrs (gethash :for-attrs f-spec))
-         (global-attrs (concatenate 'list
-                                    (gethash "global" for-attrs)
-                                    (gethash "html-global" for-attrs))))
-    (write-class "global" '(xhtml) global-attrs t c-stream)
-    (write-exports "global" global-attrs p-stream)
-    (loop for e in elems
-          as heading = (gethash "heading" e)
-          as tag = (aref (gethash "linkingText" e) 0)
-          as supers = (if (equalp "non-conforming-features"
-                                  (gethash "id" heading))
-                          '(elem-global fragment non-conforming-features)
-                          '(elem-global fragment))
-          do (write-class tag supers
-                            (remove-duplicates
-                             (gethash tag for-attrs) :test #'equalp)
-                            nil c-stream)
-             (write-exports tag (gethash tag for-attrs) p-stream))))
+         (global-attrs (make-syms (concatenate 'list
+                                               (gethash "global" for-attrs)
+                                               (gethash "html-global" for-attrs)))))
+    `(,@(loop for e in elems
+              as heading = (gethash "heading" e)
+              as tag = (aref (gethash "linkingText" e) 0)
+              as supers = (if (equalp "non-conforming-features"
+                                      (gethash "id" heading))
+                              '(elem-global non-conforming-features)
+                              '(elem-global))
+              as attrs = (remove-duplicates (make-syms (gethash tag for-attrs)))
+              collect `(:def (deftag ,(read-from-string tag) ,supers t ,@attrs)
+                         :exp ,(collect-exports (read-from-string tag) attrs)))
+      (:def (deftag global (xhtml) nil
+              ,@global-attrs)
+       :exp ,(collect-exports 'global global-attrs)))))
 
-(defun write-files (spec)
-  (let ((f-spec (collect-spec spec))
-        (package-src (uiop:read-file-string
-                      (asdf:system-relative-pathname
-                       :cobweb "src/package-src.lisp")))
-        (spec-src (uiop:read-file-string
-                   (asdf:system-relative-pathname
-                    :cobweb "src/spec-src.lisp")))
-        (package-out (open (asdf:system-relative-pathname
-                            :cobweb "src/package.lisp")
-                           :direction :output
-                           :if-exists :supersede
-                           :if-does-not-exist :create))
-        (spec-out (open (asdf:system-relative-pathname
-                         :cobweb "src/spec.lisp")
-                        :direction :output
-                        :if-exists :supersede
-                        :if-does-not-exist :create)))
-    (format package-out "~a
-;; begin autoexport at ~a~%"
-            package-src
-            (local-time:format-timestring nil (local-time:now)))
-    (format spec-out "~a~%
-;; begin autogenerate at ~a~%"
-            spec-src
-            (local-time:format-timestring nil (local-time:now)))
-    (write-spec f-spec spec-out package-out)
-    (write-string "))" package-out)
-    (close package-out)
-    (close spec-out)))
+(defun write-spec (spec)
+  (let ((defs (collect-defs spec))
+        (definitions nil))
+    (with-open-file (stream (asdf:system-relative-pathname
+                             :cobweb "src/spec.lisp")
+                            :direction :output
+                            :if-exists :supersede
+                            :if-does-not-exist :create)
+      (format stream "~(~s~)
+
+(in-package :cobweb.spec)~%~%"
+              `(defpackage #:cobweb.spec
+                 (:use :cl :cobweb.core)
+                 (:export ,@(remove-duplicates
+                             (loop for x in defs
+                                   nconcing (destructuring-bind (&key def exp) x
+                                              (push def definitions)
+                                              exp))))))
+      (format stream "~{~(~s~)~^~%~}" definitions))))
 
 (defun main ()
-  (write-files (get-spec)))
+  (write-spec (collect-spec (get-spec))))
