@@ -1,6 +1,6 @@
 (defpackage #:cobweb.user
   (:use :cl :cobweb.spec :cobweb.core)
-  (:export ))
+  (:export :with-html :with-html-write))
 
 (in-package :cobweb.user)
 
