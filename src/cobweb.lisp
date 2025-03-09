@@ -1,8 +1,13 @@
 (in-package :cobweb)
 
-(defgeneric set-hierarchy (obj parent index)
+(defgeneric set-hierarchy (obj parent)
   (:documentation "Set the hierachy on initialization.")
-  (:method (obj parent index) t))
+  (:method (obj parent) t)
+  (:method ((obj xhtml) parent)
+    (setf (parent obj) parent))
+  (:method ((obj vector) parent)
+    (loop for x across obj
+          do (set-hierarchy x parent))))
 
 (defgeneric parse-dom (input)
   (:documentation "Parses the DOM at each node after an element 
@@ -10,18 +15,21 @@ has been initiated."))
 
 (defgeneric render (input &key &allow-other-keys)
   (:documentation "Describes how to render an object possibly by applying some
-transformations to return the XHTML tree."))
+transformations to return the XHTML tree.")
+  (:method ((input xhtml) &key &allow-other-keys)
+    input))
 
 (defmethod initialize-instance :after ((object xhtml)
                                        &key &allow-other-keys)
-  (parse-dom object))
+  (when (slot-boundp object 'html-body)
+    (set-hierarchy (html-body object) object)))
 
-(defmethod set-hierarchy ((obj xhtml) (parent xhtml) (index float))
-  (setf (parent obj) parent)
-  (with-slots (coords) obj
-    (setf (coords obj)
-          (cons (+ index (car coords))
-                (cdr coords)))))
+;; (defmethod set-hierarchy ((obj xhtml) (parent xhtml) (index float))
+;;   (setf (parent obj) parent)
+;;   (with-slots (coords) obj
+;;     (setf (coords obj)
+;;           (cons (+ index (car coords))
+;;                 (cdr coords)))))
 
 (defmethod parse-dom ((input xhtml))
   (when (and (slot-boundp input 'html-body)
@@ -29,9 +37,6 @@ transformations to return the XHTML tree."))
     (loop for x across (html-body input)
           as i = 0.0 then (+ i 0.1)
           do (set-hierarchy x input i)))
-  input)
-
-(defmethod render ((input xhtml) &key &allow-other-keys)
   input)
 
 (defun make-body (input &optional (out nil))
@@ -82,6 +87,11 @@ transformations to return the XHTML tree."))
 (defmacro with-html (&body body)
   `(progn ,@(sexp-parse body)))
 
+(defmacro with-html (&body body)
+  `(make-instance
+    'fragment
+    :body (list ,@body)))
+
 (defmacro with-html-write (stream &body body)
-  `(let ((html (with-html ,@body)))
+  `(let ((html (html-body (with-html ,@body))))
      (values html (html-writer html ,stream))))

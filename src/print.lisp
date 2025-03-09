@@ -40,7 +40,7 @@
 (defmethod html-writer ((object xhtml) (stream stream)
                         &optional (indent nil))
   ;; TODO: make less ugly
-  (let* ((tag (when (car (is-tag (class-of object))) (truncate-name object)))
+  (let* ((tag (when (car (tag (class-of object))) (truncate-name object)))
          (slot-list (bound-slots object))
          (slot-strings (mapcar (lambda (x)
                                  (format nil "~(~a~)=\"~a\""
@@ -69,4 +69,9 @@
 (defmethod html-writer ((object vector) (stream stream)
                         &optional (indent nil))
   (loop for x across object
+        do (html-writer x stream indent)))
+
+(defmethod html-writer ((object fragment) (stream stream)
+                        &optional (indent nil))
+  (loop for x in (html-body object)
         do (html-writer x stream indent)))

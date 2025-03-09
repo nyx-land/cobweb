@@ -21,20 +21,42 @@
 (c2mop:ensure-finalized (find-class 'xhtml-meta))
 (c2mop:ensure-finalized (find-class 'fragment-meta))
 
-(defmacro foobar (&key bar &allow-other-keys &body body)
-  `(progn ,foo ,@body))
+(defvar *global-attrs*
+  '(slot id class popovertargetaction
+    popovertarget popover draggable enterkeyhint inputmode autocorrect
+    autocapitalize writingsuggestions spellcheck contenteditable accesskey
+    autofocus hidden itemprop itemref itemid itemtype itemscope is style dir
+    translate lang title))
 
-(defmacro define-xhtml (name attrs)
-  `(let* ((class-name ',(read-from-string
-                         (format nil "~@:(elem-~a~)"
-                                 name)))
-          (attrs (expose-tag (c2mop:class-slots (find-class class-name))
-                             :add-slots)))
-     ;; TODO: figure out how to compile `ATTRS' into the
-     ;; generated macro's lambda-list
-     (defmacro ,name (&body body)
-       `(render (apply #'make-instance ',class-name
-                       ,(parse-attrs body attrs))))))
+(defmacro define-xhtml (name supers tag &rest attrs)
+  `(values
+    (defclass ,(make-class-name name) ,supers
+      ,(make-slots attrs)
+      (:metaclass xhtml-meta)
+      (:tag ,tag))
+    (when ,tag
+      (defmacro ,name ((&rest attrs
+                        &key ,@(remove-duplicates
+                                (append attrs *global-attrs*)))
+                       &body body)
+        (declare (ignorable ,@attrs ,@*global-attrs*))
+        (let ((class-name ',(make-class-name name)))
+          `(render (apply #'make-instance ',class-name
+                          :body (apply #'vector (list ,@body))
+                          (list ,@attrs)))))))
+  ;; (let* ((class-name ',)
+  ;;        ;; (attrs (expose-tag (c2mop:class-slots (find-class class-name))
+  ;;        ;;                    :add-slots))
+  ;;        (arglist ))
+  ;;   ;; TODO: figure out how to compile `ATTRS' into the
+  ;;   ;; generated macro's lambda-list
+  ;;   `(progn
+  ;;      (defmacro ,',name `(&rest attrs &key ,@attrs)
+  ;;        (render (apply #'make-instance ',(make-class-name name)
+  ;;                       attrs
+  ;;                       ;;,(parse-attrs body attrs)
+  ;;                       )))))
+  )
 
 (defgeneric expose-tag (class key)
   (:documentation "Describes how to make a class parseable."))
