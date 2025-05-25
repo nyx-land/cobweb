@@ -5,4 +5,5 @@
   ((:module "src"
     :components ((:file "core")
                  (:file "spec")
-                 (:file "user")))))
+                 (:file "user")
+                 (:file "package")))))
