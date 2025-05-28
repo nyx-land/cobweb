@@ -38,63 +38,57 @@
               (format nil "~@<~:_ ~a~:>"
                       (html-body object))))))
 
-(defgeneric html-writer (object stream &optional indent)
+(defgeneric html-writer (stream object &optional at colon indent)
   (:documentation "Write the HTML object to something.")
-  (:method (object (stream stream) &optional indent)
-    (html-writer object stream indent))
-  (:method (object (stream t) &optional indent)
-    (html-writer object *standard-output* indent))
-  (:method (object (stream null) &optional indent)
+  ;; (:method (stream object &optional at colon indent)
+  ;;   (html-writer stream object at colon indent))
+  (:method ((stream t) object &optional at colon indent)
+    (html-writer *standard-output* object at colon indent))
+  (:method ((stream null) object &optional at colon indent)
     (let ((out (make-string-output-stream)))
-      (html-writer object out indent)
+      (html-writer out object at colon indent)
       (get-output-stream-string out))))
 
-(defmethod html-writer (object (stream stream)
-                        &optional (indent nil))
+(defmethod html-writer ((stream stream) object
+                        &optional at colon (indent nil))
+  (declare (ignore at colon))
   (format stream "~@[~vt~]~a~%" indent object))
 
-(defmethod html-writer ((object string) (stream stream)
-                        &optional (indent nil))
+(defmethod html-writer ((stream stream) (object string)
+                        &optional at colon (indent nil))
+  (declare (ignore at colon))
   (format stream "~@[~vt~]~a~%" indent object))
 
-(defmethod html-writer ((object xhtml) (stream stream)
-                        &optional (indent nil))
-  ;; TODO: make less ugly
+(defmethod html-writer ((stream stream) (object xhtml)
+                        &optional at colon (indent nil))
+  (declare (ignorable at colon))
   (let* ((tag (when (car (tag (class-of object))) (truncate-name object)))
-         (slot-list (bound-slots object))
-         (slot-strings (mapcar (lambda (x)
-                                 (format nil "~(~a~)=\"~a\""
-                                         (cdr x)
-                                         (slot-value object (car x))))
-                               slot-list)))
-    (when tag
-      (format stream "~@[~vt~]<~(~a~)~@[ ~{~a~^ ~}~]>"
-              indent
-              tag
-              slot-strings))
-    (when (html-body object)
-      (format stream "~%")
-      (html-writer (html-body object) stream
-                   (if indent (+ 2 indent)
-                       (if tag 2 nil)))
-      (format stream "~@[~vt~]" indent))
-    (when tag
-      (format stream "</~(~a~)>~%" tag))))
+         (slot-list (bound-slots object)))
+    (format stream "~@[~vt~]~@[<~(~a~)~@?>~]~@?~@[~vt~]~@[</~(~a~)>~%~]"
+            indent
+            tag
+            "~@[ ~{~<~(~a~)=\"~a\"~:>~}~]"
+            slot-list
+            "~@[~%~v/cobweb.user::html-writer/~]"
+            (if indent (+ 2 indent) 2)
+            (html-body object)
+            indent
+            tag)))
 
-(defmethod html-writer ((object list) (stream stream)
-                        &optional (indent nil))
+(defmethod html-writer ((stream stream) (object list)
+                        &optional at colon (indent nil))
   (loop for x in object
-        do (html-writer x stream indent)))
+        do (html-writer stream x at colon indent)))
 
-(defmethod html-writer ((object vector) (stream stream)
-                        &optional (indent nil))
+(defmethod html-writer ((stream stream) (object vector)
+                        &optional at colon (indent nil))
   (loop for x across object
-        do (html-writer x stream indent)))
+        do (html-writer stream x at colon indent)))
 
-(defmethod html-writer ((object fragment) (stream stream)
-                        &optional (indent nil))
+(defmethod html-writer ((stream stream) (object fragment)
+                        &optional at colon (indent nil))
   (loop for x in (html-body object)
-        do (html-writer x stream indent)))
+        do (html-writer stream x at colon indent)))
 
 (defmacro with-html (&body body)
   `(make-instance
@@ -103,4 +97,4 @@
 
 (defmacro with-html-write (stream &body body)
   `(let ((html (html-body (with-html ,@body))))
-     (values html (html-writer html ,stream))))
+     (values html (html-writer ,stream html))))
