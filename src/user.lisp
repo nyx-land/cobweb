@@ -1,6 +1,6 @@
 (defpackage #:cobweb.user
   (:use :cl :cobweb.spec :cobweb.core)
-  (:export :with-html :with-html-write))
+  (:export :format-tag :with-html :with-html-write))
 
 (in-package :cobweb.user)
 
@@ -12,7 +12,7 @@
         as name = (c2mop:slot-definition-name slot)
         when (and (search "ATTR-" (symbol-name name))
                   (slot-boundp object name))
-          collect (list (intern (symbol-name name) :keyword)
+          collect (list (intern (subseq (symbol-name name) 5) :keyword)
                         (slot-value object name))))
 
 (defmethod print-object ((object elem-global) stream)
@@ -31,8 +31,11 @@
               (format nil "~@<~:_ ~a~:>"
                       (html-body object))))))
 
-(defun format-tag (stream object)
-  (format stream "~@[<~(~a~)>~]"
+(defun format-tag (stream object &rest body)
+  (format stream "~@[<~(~a~)~@[ ~{~<~(~a~)=\"~a\"~:>~}~]>~]~{~@?~}~@[</~(~a~)>~]"
+          (car (tag (class-of object)))
+          (bound-attrs object)
+          body
           (car (tag (class-of object)))))
 
 (defgeneric html-writer (stream object &optional at colon indent)
@@ -62,16 +65,13 @@
       (funcall (html-fmt object) stream object at colon indent)
       (let* ((tag (when (car (tag (class-of object))) (truncate-name object)))
              (slot-list (bound-attrs object)))
-        (format stream "~@[~vt~]~@[<~(~a~)~@?>~]~@?~@[~vt~]~@[</~(~a~)>~%~]"
-                indent
-                tag
-                "~@[ ~{~<~(~a~)=\"~a\"~:>~}~]"
-                slot-list
-                "~@[~%~v/cobweb.user::html-writer/~]"
-                (if indent (+ 2 indent) 2)
-                (html-body object)
-                indent
-                tag))))
+        (format stream "~@[~vt~]" indent)
+        (format-tag stream object
+                    "~@[~%~v/cobweb.user::html-writer/~]"
+                    (if indent (+ 2 indent) 2)
+                    (html-body object)
+                    "~@[~vt~]" indent)
+        (format stream "~%"))))
 
 (defmethod html-writer ((stream stream) (object list)
                         &optional at colon (indent nil))
