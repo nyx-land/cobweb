@@ -95,20 +95,6 @@
   (loop for x in (html-body object)
         do (html-writer x stream indent)))
 
-(defgeneric set-hierarchy (obj parent)
-  (:documentation "Set the hierachy on initialization.")
-  (:method (obj parent) t)
-  (:method ((obj xhtml) parent)
-    (setf (parent obj) parent))
-  (:method ((obj vector) parent)
-    (loop for x across obj
-          do (set-hierarchy x parent))))
-
-(defmethod initialize-instance :after ((object xhtml)
-                                       &key &allow-other-keys)
-  (when (slot-boundp object 'html-body)
-    (set-hierarchy (html-body object) object)))
-
 (defmacro with-html (&body body)
   `(make-instance
     'fragment

@@ -3,7 +3,8 @@
   (:export :*global-attrs*
    :xhtml-meta :fragment-meta
    :fragment :xhtml :html-body
-   :parent :tag :deftag :render))
+   :parent :x-pos :y-pos :traverse
+   :tag :deftag :render))
 
 (in-package :cobweb.core)
 
@@ -59,6 +60,11 @@
 (c2mop:ensure-finalized (find-class 'xhtml-meta))
 (c2mop:ensure-finalized (find-class 'fragment-meta))
 
+(defun traverse (object fn)
+  (funcall fn object)
+  (loop for x across (html-body object)
+        do (funcall #'traverse x fn)))
+
 (defmacro deftag (name supers tag &rest attrs)
   `(values
     (defclass ,(make-class-name name) ,supers
@@ -72,9 +78,15 @@
                        &body body)
         (declare (ignorable ,@attrs ,@*global-attrs*))
         (let ((class-name ',(make-class-name name)))
-          `(render (apply #'make-instance ',class-name
+          `(let ((object (apply #'make-instance ',class-name
                           :body (apply #'vector (list ,@body))
-                          (list ,@attrs))))))))
+                          (list ,@attrs))))
+             (traverse object (lambda (obj)
+                                (incf (x-pos obj))))
+             (loop for x across (html-body object)
+                   do (setf (parent x) object)
+                      (incf (y-pos x)))
+             (render object)))))))
 
 (defmethod initialize-instance :after ((class xhtml-meta)
                                        &key (tag t) &allow-other-keys)
@@ -86,7 +98,8 @@
 
 (defclass fragment ()
   ((parent    :initarg :parent :accessor parent)
-   (coords    :initarg :coords :accessor coords)
+   (x-pos     :initarg :x-pos  :accessor x-pos)
+   (y-pos     :initarg :y-pos  :accessor y-pos)
    (html-body :initarg :body   :accessor html-body))
   (:metaclass fragment-meta)
   (:documentation "An abstract middleware class between XHTML and every
@@ -97,7 +110,9 @@ HTML element.")
   (:metaclass xhtml-meta)
   (:tag nil)
   (:default-initargs
-   :parent :root))
+   :parent :root
+   :x-pos 0
+   :y-pos 0))
 
 (defclass non-conforming-features () ()
   (:metaclass xhtml-meta)
@@ -105,6 +120,7 @@ HTML element.")
 
 (defgeneric render (input &key &allow-other-keys)
   (:documentation "Describes how to render an object possibly by applying some
-transformations to return the XHTML tree.")
+transformations to return the XHTML tree. By default this does nothing
+but is meant to be specialized on custom `XHTML' subclasses.")
   (:method ((input xhtml) &key &allow-other-keys)
     input))
