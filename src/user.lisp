@@ -7,27 +7,20 @@
 (defun truncate-name (object)
   (subseq (symbol-name (class-name (class-of object))) 5))
 
-(defun bound-slots (object)
-  (flet ((slot-names (c)
-           (mapcar (lambda (x) (cons (c2mop:slot-definition-name x)
-                                     (car (c2mop:slot-definition-initargs x))))
-                   c)))
-    (let* ((filter-slots (slot-names (c2mop:class-slots (find-class 'xhtml))))
-           (slot-list (set-difference (slot-names (c2mop:class-slots (class-of object)))
-                                      filter-slots
-                                      :key #'car))
-           (slots-out (remove-if-not (lambda (x) (slot-boundp object (car x)))
-                                     slot-list)))
-      (mapcar (lambda (x)
-                (list (cdr x) (slot-value object (car x))))
-              slots-out))))
+(defun bound-attrs (object)
+  (loop for slot in (c2mop:class-slots (class-of object))
+        as name = (c2mop:slot-definition-name slot)
+        when (and (search "ATTR-" (symbol-name name))
+                  (slot-boundp object name))
+          collect (list (intern (symbol-name name) :keyword)
+                        (slot-value object name))))
 
 (defmethod print-object ((object elem-global) stream)
   (with-slots (html-body depth attr-class attr-id) object
     (print-unreadable-object (object stream)
       (format stream "~@<~a~@[ ~{~:_~2i~<~s ~s~:>~^ ~}~]~@[ ~:_~a~]~:>"
-              (truncate-name object)
-              (bound-slots object)
+              (car (tag (class-of object)))
+              (bound-attrs object)
               (if (equalp #() html-body) nil
                   html-body)))))
 
@@ -37,6 +30,10 @@
             (when (slot-boundp object 'html-body)
               (format nil "~@<~:_ ~a~:>"
                       (html-body object))))))
+
+(defun format-tag (stream object)
+  (format stream "~@[<~(~a~)>~]"
+          (car (tag (class-of object)))))
 
 (defgeneric html-writer (stream object &optional at colon indent)
   (:documentation "Write the HTML object to something.")
@@ -64,7 +61,7 @@
   (if (html-fmt object)
       (funcall (html-fmt object) stream object at colon indent)
       (let* ((tag (when (car (tag (class-of object))) (truncate-name object)))
-             (slot-list (bound-slots object)))
+             (slot-list (bound-attrs object)))
         (format stream "~@[~vt~]~@[<~(~a~)~@?>~]~@?~@[~vt~]~@[</~(~a~)>~%~]"
                 indent
                 tag

@@ -79,7 +79,8 @@
                               '(elem-global non-conforming-features)
                               '(elem-global))
               as attrs = (remove-duplicates (make-syms (gethash tag for-attrs)))
-              collect `(:def (deftag ,(read-from-string tag) ,supers t ,@attrs)
+              collect `(:def (deftag ,(read-from-string tag) ,supers
+                               ,(intern (string-upcase tag) :keyword) ,@attrs)
                          :exp ,(collect-exports (read-from-string tag) attrs)))
       (:def (deftag global (xhtml) nil
               ,@global-attrs)

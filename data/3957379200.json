@@ -5,25 +5,6 @@
   },
   "dfns": [
     {
-      "id": "willful-violation",
-      "href": "https://html.spec.whatwg.org/multipage/introduction.html#willful-violation",
-      "linkingText": [
-        "willful violation"
-      ],
-      "localLinkingText": [],
-      "type": "dfn",
-      "for": [],
-      "access": "private",
-      "informative": false,
-      "heading": {
-        "id": "compliance-with-other-specifications",
-        "href": "https://html.spec.whatwg.org/multipage/introduction.html#compliance-with-other-specifications",
-        "title": "Compliance with other specifications",
-        "number": "1.7.2"
-      },
-      "definedIn": "prose"
-    },
-    {
       "id": "x-this",
       "href": "https://html.spec.whatwg.org/multipage/introduction.html#x-this",
       "linkingText": [
@@ -889,44 +870,6 @@
       "href": "https://html.spec.whatwg.org/multipage/infrastructure.html#fontface",
       "linkingText": [
         "FontFace"
-      ],
-      "localLinkingText": [],
-      "type": "dfn",
-      "for": [],
-      "access": "private",
-      "informative": false,
-      "heading": {
-        "id": "dependencies",
-        "href": "https://html.spec.whatwg.org/multipage/infrastructure.html#dependencies",
-        "title": "Dependencies",
-        "number": "2.1.9"
-      },
-      "definedIn": "prose"
-    },
-    {
-      "id": "dompointinit-x",
-      "href": "https://html.spec.whatwg.org/multipage/infrastructure.html#dompointinit-x",
-      "linkingText": [
-        "x"
-      ],
-      "localLinkingText": [],
-      "type": "dfn",
-      "for": [],
-      "access": "private",
-      "informative": false,
-      "heading": {
-        "id": "dependencies",
-        "href": "https://html.spec.whatwg.org/multipage/infrastructure.html#dependencies",
-        "title": "Dependencies",
-        "number": "2.1.9"
-      },
-      "definedIn": "prose"
-    },
-    {
-      "id": "dompointinit-y",
-      "href": "https://html.spec.whatwg.org/multipage/infrastructure.html#dompointinit-y",
-      "linkingText": [
-        "y"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -3348,7 +3291,7 @@
       "id": "attr-fetchpriority-high-state",
       "href": "https://html.spec.whatwg.org/multipage/urls-and-fetching.html#attr-fetchpriority-high-state",
       "linkingText": [
-        "high"
+        "High"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -3390,7 +3333,7 @@
       "id": "attr-fetchpriority-low-state",
       "href": "https://html.spec.whatwg.org/multipage/urls-and-fetching.html#attr-fetchpriority-low-state",
       "linkingText": [
-        "low"
+        "Low"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -3432,7 +3375,7 @@
       "id": "attr-fetchpriority-auto-state",
       "href": "https://html.spec.whatwg.org/multipage/urls-and-fetching.html#attr-fetchpriority-auto-state",
       "linkingText": [
-        "auto"
+        "Auto"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -6776,7 +6719,7 @@
       "id": "attr-translate-yes-state",
       "href": "https://html.spec.whatwg.org/multipage/dom.html#attr-translate-yes-state",
       "linkingText": [
-        "yes"
+        "Yes"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -6816,7 +6759,7 @@
       "id": "attr-translate-no-state",
       "href": "https://html.spec.whatwg.org/multipage/dom.html#attr-translate-no-state",
       "linkingText": [
-        "no"
+        "No"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -6835,7 +6778,7 @@
       "id": "attr-translate-inherit-state",
       "href": "https://html.spec.whatwg.org/multipage/dom.html#attr-translate-inherit-state",
       "linkingText": [
-        "inherit"
+        "Inherit"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -6993,7 +6936,7 @@
       "id": "attr-dir-ltr-state",
       "href": "https://html.spec.whatwg.org/multipage/dom.html#attr-dir-ltr-state",
       "linkingText": [
-        "ltr"
+        "LTR"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -7033,7 +6976,7 @@
       "id": "attr-dir-rtl-state",
       "href": "https://html.spec.whatwg.org/multipage/dom.html#attr-dir-rtl-state",
       "linkingText": [
-        "rtl"
+        "RTL"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -7073,7 +7016,7 @@
       "id": "attr-dir-auto-state",
       "href": "https://html.spec.whatwg.org/multipage/dom.html#attr-dir-auto-state",
       "linkingText": [
-        "auto"
+        "Auto"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -7092,7 +7035,7 @@
       "id": "attr-dir-undefined-state",
       "href": "https://html.spec.whatwg.org/multipage/dom.html#attr-dir-undefined-state",
       "linkingText": [
-        "undefined"
+        "Undefined"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -13541,10 +13484,29 @@
       "definedIn": "prose"
     },
     {
-      "id": "as-a-download",
-      "href": "https://html.spec.whatwg.org/multipage/links.html#as-a-download",
+      "id": "handle-as-a-download",
+      "href": "https://html.spec.whatwg.org/multipage/links.html#handle-as-a-download",
       "linkingText": [
-        "as a download"
+        "handle as a download"
+      ],
+      "localLinkingText": [],
+      "type": "dfn",
+      "for": [],
+      "access": "private",
+      "informative": false,
+      "heading": {
+        "id": "downloading-resources",
+        "href": "https://html.spec.whatwg.org/multipage/links.html#downloading-resources",
+        "title": "Downloading resources",
+        "number": "4.6.5"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "getting-the-suggested-filename",
+      "href": "https://html.spec.whatwg.org/multipage/links.html#getting-the-suggested-filename",
+      "linkingText": [
+        "get the suggested filename"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -26198,7 +26160,7 @@
       "id": "attr-th-scope-row-state",
       "href": "https://html.spec.whatwg.org/multipage/tables.html#attr-th-scope-row-state",
       "linkingText": [
-        "row"
+        "Row"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -26238,7 +26200,7 @@
       "id": "attr-th-scope-column-state",
       "href": "https://html.spec.whatwg.org/multipage/tables.html#attr-th-scope-column-state",
       "linkingText": [
-        "column"
+        "Column"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -26278,7 +26240,7 @@
       "id": "attr-th-scope-rowgroup-state",
       "href": "https://html.spec.whatwg.org/multipage/tables.html#attr-th-scope-rowgroup-state",
       "linkingText": [
-        "row group"
+        "Row Group"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -26318,7 +26280,7 @@
       "id": "attr-th-scope-colgroup-state",
       "href": "https://html.spec.whatwg.org/multipage/tables.html#attr-th-scope-colgroup-state",
       "linkingText": [
-        "column group"
+        "Column Group"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -26337,7 +26299,7 @@
       "id": "attr-th-scope-auto-state",
       "href": "https://html.spec.whatwg.org/multipage/tables.html#attr-th-scope-auto-state",
       "linkingText": [
-        "auto"
+        "Auto"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -27242,7 +27204,7 @@
       "id": "attr-form-autocomplete-on-state",
       "href": "https://html.spec.whatwg.org/multipage/forms.html#attr-form-autocomplete-on-state",
       "linkingText": [
-        "on"
+        "On"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -27282,7 +27244,7 @@
       "id": "attr-form-autocomplete-off-state",
       "href": "https://html.spec.whatwg.org/multipage/forms.html#attr-form-autocomplete-off-state",
       "linkingText": [
-        "off"
+        "Off"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -31210,6 +31172,46 @@
       "definedIn": "table"
     },
     {
+      "id": "attr-button-command-request-close",
+      "href": "https://html.spec.whatwg.org/multipage/form-elements.html#attr-button-command-request-close",
+      "linkingText": [
+        "request-close"
+      ],
+      "localLinkingText": [],
+      "type": "attr-value",
+      "for": [
+        "html-global/command"
+      ],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "the-button-element",
+        "href": "https://html.spec.whatwg.org/multipage/form-elements.html#the-button-element",
+        "title": "The button element",
+        "number": "4.10.6"
+      },
+      "definedIn": "table"
+    },
+    {
+      "id": "attr-button-command-request-close-state",
+      "href": "https://html.spec.whatwg.org/multipage/form-elements.html#attr-button-command-request-close-state",
+      "linkingText": [
+        "Request Close"
+      ],
+      "localLinkingText": [],
+      "type": "dfn",
+      "for": [],
+      "access": "private",
+      "informative": false,
+      "heading": {
+        "id": "the-button-element",
+        "href": "https://html.spec.whatwg.org/multipage/form-elements.html#the-button-element",
+        "title": "The button element",
+        "number": "4.10.6"
+      },
+      "definedIn": "table"
+    },
+    {
       "id": "attr-button-command-show-modal",
       "href": "https://html.spec.whatwg.org/multipage/form-elements.html#attr-button-command-show-modal",
       "linkingText": [
@@ -34244,6 +34246,25 @@
       "href": "https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#concept-fe-dirty",
       "linkingText": [
         "dirty value flag"
+      ],
+      "localLinkingText": [],
+      "type": "dfn",
+      "for": [],
+      "access": "private",
+      "informative": false,
+      "heading": {
+        "id": "a-form-control's-value",
+        "href": "https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#a-form-control's-value",
+        "title": "A form control's value",
+        "number": "4.10.17.1"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "concept-fe-optional-value",
+      "href": "https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#concept-fe-optional-value",
+      "linkingText": [
+        "optional value"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -40605,7 +40626,7 @@
       "id": "enable-close-watcher-for-requestclose()",
       "href": "https://html.spec.whatwg.org/multipage/interactive-elements.html#enable-close-watcher-for-requestclose()",
       "linkingText": [
-        "enable close watcher for requestClose()"
+        "enable close watcher for request close"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -40682,6 +40703,25 @@
       "href": "https://html.spec.whatwg.org/multipage/interactive-elements.html#close-the-dialog",
       "linkingText": [
         "closed"
+      ],
+      "localLinkingText": [],
+      "type": "dfn",
+      "for": [],
+      "access": "private",
+      "informative": false,
+      "heading": {
+        "id": "the-dialog-element",
+        "href": "https://html.spec.whatwg.org/multipage/interactive-elements.html#the-dialog-element",
+        "title": "The dialog element",
+        "number": "4.11.4"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "dialog-request-close",
+      "href": "https://html.spec.whatwg.org/multipage/interactive-elements.html#dialog-request-close",
+      "linkingText": [
+        "request to close"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -41833,7 +41873,7 @@
       "id": "attr-shadowrootmode-open-state",
       "href": "https://html.spec.whatwg.org/multipage/scripting.html#attr-shadowrootmode-open-state",
       "linkingText": [
-        "open"
+        "Open"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -41873,7 +41913,7 @@
       "id": "attr-shadowrootmode-closed-state",
       "href": "https://html.spec.whatwg.org/multipage/scripting.html#attr-shadowrootmode-closed-state",
       "linkingText": [
-        "closed"
+        "Closed"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -41892,7 +41932,7 @@
       "id": "attr-shadowrootmode-none-state",
       "href": "https://html.spec.whatwg.org/multipage/scripting.html#attr-shadowrootmode-none-state",
       "linkingText": [
-        "none"
+        "None"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -41954,6 +41994,27 @@
       "href": "https://html.spec.whatwg.org/multipage/scripting.html#attr-template-shadowrootserializable",
       "linkingText": [
         "shadowrootserializable"
+      ],
+      "localLinkingText": [],
+      "type": "element-attr",
+      "for": [
+        "template"
+      ],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "the-template-element",
+        "href": "https://html.spec.whatwg.org/multipage/scripting.html#the-template-element",
+        "title": "The template element",
+        "number": "4.12.3"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "attr-template-shadowrootcustomelementregistry",
+      "href": "https://html.spec.whatwg.org/multipage/scripting.html#attr-template-shadowrootcustomelementregistry",
+      "linkingText": [
+        "shadowrootcustomelementregistry"
       ],
       "localLinkingText": [],
       "type": "element-attr",
@@ -42116,6 +42177,27 @@
       "href": "https://html.spec.whatwg.org/multipage/scripting.html#dom-template-shadowrootserializable",
       "linkingText": [
         "shadowRootSerializable"
+      ],
+      "localLinkingText": [],
+      "type": "attribute",
+      "for": [
+        "HTMLTemplateElement"
+      ],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "the-template-element",
+        "href": "https://html.spec.whatwg.org/multipage/scripting.html#the-template-element",
+        "title": "The template element",
+        "number": "4.12.3"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "dom-template-shadowrootcustomelementregistry",
+      "href": "https://html.spec.whatwg.org/multipage/scripting.html#dom-template-shadowrootcustomelementregistry",
+      "linkingText": [
+        "shadowRootCustomElementRegistry"
       ],
       "localLinkingText": [],
       "type": "attribute",
@@ -43592,44 +43674,6 @@
       "href": "https://html.spec.whatwg.org/multipage/canvas.html#textmetrics",
       "linkingText": [
         "TextMetrics"
-      ],
-      "localLinkingText": [],
-      "type": "interface",
-      "for": [],
-      "access": "public",
-      "informative": false,
-      "heading": {
-        "id": "2dcontext",
-        "href": "https://html.spec.whatwg.org/multipage/canvas.html#2dcontext",
-        "title": "The 2D rendering context",
-        "number": "4.12.5.1"
-      },
-      "definedIn": "pre"
-    },
-    {
-      "id": "imagedatasettings",
-      "href": "https://html.spec.whatwg.org/multipage/canvas.html#imagedatasettings",
-      "linkingText": [
-        "ImageDataSettings"
-      ],
-      "localLinkingText": [],
-      "type": "dictionary",
-      "for": [],
-      "access": "public",
-      "informative": false,
-      "heading": {
-        "id": "2dcontext",
-        "href": "https://html.spec.whatwg.org/multipage/canvas.html#2dcontext",
-        "title": "The 2D rendering context",
-        "number": "4.12.5.1"
-      },
-      "definedIn": "pre"
-    },
-    {
-      "id": "imagedata",
-      "href": "https://html.spec.whatwg.org/multipage/canvas.html#imagedata",
-      "linkingText": [
-        "ImageData"
       ],
       "localLinkingText": [],
       "type": "interface",
@@ -47335,48 +47379,6 @@
       "definedIn": "heading"
     },
     {
-      "id": "dom-imagedata",
-      "href": "https://html.spec.whatwg.org/multipage/canvas.html#dom-imagedata",
-      "linkingText": [
-        "new ImageData(sw, sh, settings)"
-      ],
-      "localLinkingText": [],
-      "type": "constructor",
-      "for": [
-        "ImageData"
-      ],
-      "access": "public",
-      "informative": false,
-      "heading": {
-        "id": "pixel-manipulation",
-        "href": "https://html.spec.whatwg.org/multipage/canvas.html#pixel-manipulation",
-        "title": "Pixel manipulation",
-        "number": "4.12.5.1.16"
-      },
-      "definedIn": "prose"
-    },
-    {
-      "id": "dom-imagedata-with-data",
-      "href": "https://html.spec.whatwg.org/multipage/canvas.html#dom-imagedata-with-data",
-      "linkingText": [
-        "new ImageData(data, sw, sh, settings)"
-      ],
-      "localLinkingText": [],
-      "type": "constructor",
-      "for": [
-        "ImageData"
-      ],
-      "access": "public",
-      "informative": false,
-      "heading": {
-        "id": "pixel-manipulation",
-        "href": "https://html.spec.whatwg.org/multipage/canvas.html#pixel-manipulation",
-        "title": "Pixel manipulation",
-        "number": "4.12.5.1.16"
-      },
-      "definedIn": "prose"
-    },
-    {
       "id": "dom-context-2d-createimagedata",
       "href": "https://html.spec.whatwg.org/multipage/canvas.html#dom-context-2d-createimagedata",
       "linkingText": [
@@ -47430,206 +47432,6 @@
         "CanvasImageData"
       ],
       "access": "public",
-      "informative": false,
-      "heading": {
-        "id": "pixel-manipulation",
-        "href": "https://html.spec.whatwg.org/multipage/canvas.html#pixel-manipulation",
-        "title": "Pixel manipulation",
-        "number": "4.12.5.1.16"
-      },
-      "definedIn": "prose"
-    },
-    {
-      "id": "initialize-an-imagedata-object",
-      "href": "https://html.spec.whatwg.org/multipage/canvas.html#initialize-an-imagedata-object",
-      "linkingText": [
-        "initialize an ImageData object"
-      ],
-      "localLinkingText": [],
-      "type": "dfn",
-      "for": [],
-      "access": "private",
-      "informative": false,
-      "heading": {
-        "id": "pixel-manipulation",
-        "href": "https://html.spec.whatwg.org/multipage/canvas.html#pixel-manipulation",
-        "title": "Pixel manipulation",
-        "number": "4.12.5.1.16"
-      },
-      "definedIn": "prose"
-    },
-    {
-      "id": "initialize-imagedata-settings",
-      "href": "https://html.spec.whatwg.org/multipage/canvas.html#initialize-imagedata-settings",
-      "linkingText": [
-        "settings"
-      ],
-      "localLinkingText": [],
-      "type": "dfn",
-      "for": [],
-      "access": "private",
-      "informative": false,
-      "heading": {
-        "id": "pixel-manipulation",
-        "href": "https://html.spec.whatwg.org/multipage/canvas.html#pixel-manipulation",
-        "title": "Pixel manipulation",
-        "number": "4.12.5.1.16"
-      },
-      "definedIn": "prose"
-    },
-    {
-      "id": "initialize-imagedata-source",
-      "href": "https://html.spec.whatwg.org/multipage/canvas.html#initialize-imagedata-source",
-      "linkingText": [
-        "source"
-      ],
-      "localLinkingText": [],
-      "type": "dfn",
-      "for": [],
-      "access": "private",
-      "informative": false,
-      "heading": {
-        "id": "pixel-manipulation",
-        "href": "https://html.spec.whatwg.org/multipage/canvas.html#pixel-manipulation",
-        "title": "Pixel manipulation",
-        "number": "4.12.5.1.16"
-      },
-      "definedIn": "prose"
-    },
-    {
-      "id": "initialize-imagedata-defaultcolorspace",
-      "href": "https://html.spec.whatwg.org/multipage/canvas.html#initialize-imagedata-defaultcolorspace",
-      "linkingText": [
-        "defaultColorSpace"
-      ],
-      "localLinkingText": [],
-      "type": "dfn",
-      "for": [],
-      "access": "private",
-      "informative": false,
-      "heading": {
-        "id": "pixel-manipulation",
-        "href": "https://html.spec.whatwg.org/multipage/canvas.html#pixel-manipulation",
-        "title": "Pixel manipulation",
-        "number": "4.12.5.1.16"
-      },
-      "definedIn": "prose"
-    },
-    {
-      "id": "dom-imagedata-data",
-      "href": "https://html.spec.whatwg.org/multipage/canvas.html#dom-imagedata-data",
-      "linkingText": [
-        "data"
-      ],
-      "localLinkingText": [],
-      "type": "attribute",
-      "for": [
-        "ImageData"
-      ],
-      "access": "public",
-      "informative": false,
-      "heading": {
-        "id": "pixel-manipulation",
-        "href": "https://html.spec.whatwg.org/multipage/canvas.html#pixel-manipulation",
-        "title": "Pixel manipulation",
-        "number": "4.12.5.1.16"
-      },
-      "definedIn": "prose"
-    },
-    {
-      "id": "dom-imagedata-width",
-      "href": "https://html.spec.whatwg.org/multipage/canvas.html#dom-imagedata-width",
-      "linkingText": [
-        "width"
-      ],
-      "localLinkingText": [],
-      "type": "attribute",
-      "for": [
-        "ImageData"
-      ],
-      "access": "public",
-      "informative": false,
-      "heading": {
-        "id": "pixel-manipulation",
-        "href": "https://html.spec.whatwg.org/multipage/canvas.html#pixel-manipulation",
-        "title": "Pixel manipulation",
-        "number": "4.12.5.1.16"
-      },
-      "definedIn": "prose"
-    },
-    {
-      "id": "dom-imagedata-height",
-      "href": "https://html.spec.whatwg.org/multipage/canvas.html#dom-imagedata-height",
-      "linkingText": [
-        "height"
-      ],
-      "localLinkingText": [],
-      "type": "attribute",
-      "for": [
-        "ImageData"
-      ],
-      "access": "public",
-      "informative": false,
-      "heading": {
-        "id": "pixel-manipulation",
-        "href": "https://html.spec.whatwg.org/multipage/canvas.html#pixel-manipulation",
-        "title": "Pixel manipulation",
-        "number": "4.12.5.1.16"
-      },
-      "definedIn": "prose"
-    },
-    {
-      "id": "dom-imagedata-colorspace",
-      "href": "https://html.spec.whatwg.org/multipage/canvas.html#dom-imagedata-colorspace",
-      "linkingText": [
-        "colorSpace"
-      ],
-      "localLinkingText": [],
-      "type": "attribute",
-      "for": [
-        "ImageData"
-      ],
-      "access": "public",
-      "informative": false,
-      "heading": {
-        "id": "pixel-manipulation",
-        "href": "https://html.spec.whatwg.org/multipage/canvas.html#pixel-manipulation",
-        "title": "Pixel manipulation",
-        "number": "4.12.5.1.16"
-      },
-      "definedIn": "prose"
-    },
-    {
-      "id": "dom-imagedatasettings-colorspace",
-      "href": "https://html.spec.whatwg.org/multipage/canvas.html#dom-imagedatasettings-colorspace",
-      "linkingText": [
-        "colorSpace"
-      ],
-      "localLinkingText": [],
-      "type": "dict-member",
-      "for": [
-        "ImageDataSettings"
-      ],
-      "access": "public",
-      "informative": false,
-      "heading": {
-        "id": "pixel-manipulation",
-        "href": "https://html.spec.whatwg.org/multipage/canvas.html#pixel-manipulation",
-        "title": "Pixel manipulation",
-        "number": "4.12.5.1.16"
-      },
-      "definedIn": "prose"
-    },
-    {
-      "id": "canvas-pixel-arraybuffer",
-      "href": "https://html.spec.whatwg.org/multipage/canvas.html#canvas-pixel-arraybuffer",
-      "linkingText": [
-        "Canvas Pixel ArrayBuffer"
-      ],
-      "localLinkingText": [],
-      "type": "dfn",
-      "for": [],
-      "access": "private",
       "informative": false,
       "heading": {
         "id": "pixel-manipulation",
@@ -49218,7 +49020,7 @@
       "localLinkingText": [],
       "type": "dfn",
       "for": [],
-      "access": "private",
+      "access": "public",
       "informative": false,
       "heading": {
         "id": "custom-elements-core-concepts",
@@ -49446,15 +49248,17 @@
       "definedIn": "prose"
     },
     {
-      "id": "global-custom-element-registry",
-      "href": "https://html.spec.whatwg.org/multipage/custom-elements.html#global-custom-element-registry",
+      "id": "active-custom-element-constructor-map",
+      "href": "https://html.spec.whatwg.org/multipage/custom-elements.html#active-custom-element-constructor-map",
       "linkingText": [
-        "custom element registry"
+        "active custom element constructor map"
       ],
       "localLinkingText": [],
       "type": "dfn",
-      "for": [],
-      "access": "private",
+      "for": [
+        "similar-origin window agent"
+      ],
+      "access": "public",
       "informative": false,
       "heading": {
         "id": "custom-elements-api",
@@ -49564,6 +49368,48 @@
       "definedIn": "pre"
     },
     {
+      "id": "is-scoped",
+      "href": "https://html.spec.whatwg.org/multipage/custom-elements.html#is-scoped",
+      "linkingText": [
+        "is scoped"
+      ],
+      "localLinkingText": [],
+      "type": "dfn",
+      "for": [
+        "CustomElementRegistry"
+      ],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "custom-elements-api",
+        "href": "https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-api",
+        "title": "The CustomElementRegistry interface",
+        "number": "4.13.4"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "scoped-document-set",
+      "href": "https://html.spec.whatwg.org/multipage/custom-elements.html#scoped-document-set",
+      "linkingText": [
+        "scoped document set"
+      ],
+      "localLinkingText": [],
+      "type": "dfn",
+      "for": [
+        "CustomElementRegistry"
+      ],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "custom-elements-api",
+        "href": "https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-api",
+        "title": "The CustomElementRegistry interface",
+        "number": "4.13.4"
+      },
+      "definedIn": "prose"
+    },
+    {
       "id": "custom-element-definition-set",
       "href": "https://html.spec.whatwg.org/multipage/custom-elements.html#custom-element-definition-set",
       "linkingText": [
@@ -49621,6 +49467,44 @@
       "definedIn": "prose"
     },
     {
+      "id": "look-up-a-custom-element-registry",
+      "href": "https://html.spec.whatwg.org/multipage/custom-elements.html#look-up-a-custom-element-registry",
+      "linkingText": [
+        "look up a custom element registry"
+      ],
+      "localLinkingText": [],
+      "type": "dfn",
+      "for": [],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "custom-elements-api",
+        "href": "https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-api",
+        "title": "The CustomElementRegistry interface",
+        "number": "4.13.4"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "dom-customelementregistry",
+      "href": "https://html.spec.whatwg.org/multipage/custom-elements.html#dom-customelementregistry",
+      "linkingText": [
+        "new CustomElementRegistry()"
+      ],
+      "localLinkingText": [],
+      "type": "dfn",
+      "for": [],
+      "access": "private",
+      "informative": false,
+      "heading": {
+        "id": "custom-elements-api",
+        "href": "https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-api",
+        "title": "The CustomElementRegistry interface",
+        "number": "4.13.4"
+      },
+      "definedIn": "prose"
+    },
+    {
       "id": "element-definition",
       "href": "https://html.spec.whatwg.org/multipage/custom-elements.html#element-definition",
       "linkingText": [
@@ -49651,6 +49535,25 @@
         "CustomElementRegistry"
       ],
       "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "custom-elements-api",
+        "href": "https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-api",
+        "title": "The CustomElementRegistry interface",
+        "number": "4.13.4"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "upgrade-particular-elements-within-a-document",
+      "href": "https://html.spec.whatwg.org/multipage/custom-elements.html#upgrade-particular-elements-within-a-document",
+      "linkingText": [
+        "upgrade particular elements within a document"
+      ],
+      "localLinkingText": [],
+      "type": "dfn",
+      "for": [],
+      "access": "private",
       "informative": false,
       "heading": {
         "id": "custom-elements-api",
@@ -49728,6 +49631,27 @@
       "href": "https://html.spec.whatwg.org/multipage/custom-elements.html#dom-customelementregistry-upgrade",
       "linkingText": [
         "upgrade(root)"
+      ],
+      "localLinkingText": [],
+      "type": "method",
+      "for": [
+        "CustomElementRegistry"
+      ],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "custom-elements-api",
+        "href": "https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-api",
+        "title": "The CustomElementRegistry interface",
+        "number": "4.13.4"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "dom-customelementregistry-initialize",
+      "href": "https://html.spec.whatwg.org/multipage/custom-elements.html#dom-customelementregistry-initialize",
+      "linkingText": [
+        "initialize(root)"
       ],
       "localLinkingText": [],
       "type": "method",
@@ -54106,7 +54030,7 @@
       "id": "attr-hidden-hidden-state",
       "href": "https://html.spec.whatwg.org/multipage/interaction.html#attr-hidden-hidden-state",
       "linkingText": [
-        "hidden"
+        "Hidden"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -54146,7 +54070,7 @@
       "id": "attr-hidden-until-found-state",
       "href": "https://html.spec.whatwg.org/multipage/interaction.html#attr-hidden-until-found-state",
       "linkingText": [
-        "hidden until found"
+        "Hidden Until Found"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -54165,7 +54089,7 @@
       "id": "attr-hidden-not-hidden-state",
       "href": "https://html.spec.whatwg.org/multipage/interaction.html#attr-hidden-not-hidden-state",
       "linkingText": [
-        "not hidden"
+        "Not Hidden"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -56116,25 +56040,6 @@
       "definedIn": "prose"
     },
     {
-      "id": "locked-for-focus",
-      "href": "https://html.spec.whatwg.org/multipage/interaction.html#locked-for-focus",
-      "linkingText": [
-        "locked for focus"
-      ],
-      "localLinkingText": [],
-      "type": "dfn",
-      "for": [],
-      "access": "private",
-      "informative": false,
-      "heading": {
-        "id": "focus-management-apis",
-        "href": "https://html.spec.whatwg.org/multipage/interaction.html#focus-management-apis",
-        "title": "Focus management APIs",
-        "number": "6.6.6"
-      },
-      "definedIn": "prose"
-    },
-    {
       "id": "dom-focusoptions-focusvisible",
       "href": "https://html.spec.whatwg.org/multipage/interaction.html#dom-focusoptions-focusvisible",
       "linkingText": [
@@ -56481,7 +56386,7 @@
       "id": "attr-contenteditable-true-state",
       "href": "https://html.spec.whatwg.org/multipage/interaction.html#attr-contenteditable-true-state",
       "linkingText": [
-        "true"
+        "True"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -56521,7 +56426,7 @@
       "id": "attr-contenteditable-false-state",
       "href": "https://html.spec.whatwg.org/multipage/interaction.html#attr-contenteditable-false-state",
       "linkingText": [
-        "false"
+        "False"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -56561,7 +56466,7 @@
       "id": "attr-contenteditable-plaintextonly-state",
       "href": "https://html.spec.whatwg.org/multipage/interaction.html#attr-contenteditable-plaintextonly-state",
       "linkingText": [
-        "plaintext-only"
+        "Plaintext-Only"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -56580,7 +56485,7 @@
       "id": "attr-contenteditable-inherit-state",
       "href": "https://html.spec.whatwg.org/multipage/interaction.html#attr-contenteditable-inherit-state",
       "linkingText": [
-        "inherit"
+        "Inherit"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -56818,7 +56723,7 @@
       "id": "attr-spellcheck-true-state",
       "href": "https://html.spec.whatwg.org/multipage/interaction.html#attr-spellcheck-true-state",
       "linkingText": [
-        "true"
+        "True"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -56858,7 +56763,7 @@
       "id": "attr-spellcheck-false-state",
       "href": "https://html.spec.whatwg.org/multipage/interaction.html#attr-spellcheck-false-state",
       "linkingText": [
-        "false"
+        "False"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -56877,7 +56782,7 @@
       "id": "attr-spellcheck-default-state",
       "href": "https://html.spec.whatwg.org/multipage/interaction.html#attr-spellcheck-default-state",
       "linkingText": [
-        "default"
+        "Default"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -56959,7 +56864,7 @@
       "id": "attr-writingsuggestions-true-state",
       "href": "https://html.spec.whatwg.org/multipage/interaction.html#attr-writingsuggestions-true-state",
       "linkingText": [
-        "true"
+        "True"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -56999,7 +56904,7 @@
       "id": "attr-writingsuggestions-false-state",
       "href": "https://html.spec.whatwg.org/multipage/interaction.html#attr-writingsuggestions-false-state",
       "linkingText": [
-        "false"
+        "False"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -57018,7 +56923,7 @@
       "id": "attr-writingsuggestions-default-state",
       "href": "https://html.spec.whatwg.org/multipage/interaction.html#attr-writingsuggestions-default-state",
       "linkingText": [
-        "default"
+        "Default"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -60117,7 +60022,7 @@
       "id": "attr-draggable-true-state",
       "href": "https://html.spec.whatwg.org/multipage/dnd.html#attr-draggable-true-state",
       "linkingText": [
-        "true"
+        "True"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -60157,7 +60062,7 @@
       "id": "attr-draggable-false-state",
       "href": "https://html.spec.whatwg.org/multipage/dnd.html#attr-draggable-false-state",
       "linkingText": [
-        "false"
+        "False"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -60176,7 +60081,7 @@
       "id": "attr-draggable-auto-state",
       "href": "https://html.spec.whatwg.org/multipage/dnd.html#attr-draggable-auto-state",
       "linkingText": [
-        "auto"
+        "Auto"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -60258,7 +60163,7 @@
       "id": "attr-popover-auto-state",
       "href": "https://html.spec.whatwg.org/multipage/popover.html#attr-popover-auto-state",
       "linkingText": [
-        "auto"
+        "Auto"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -60298,7 +60203,7 @@
       "id": "attr-popover-manual-state",
       "href": "https://html.spec.whatwg.org/multipage/popover.html#attr-popover-manual-state",
       "linkingText": [
-        "manual"
+        "Manual"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -60338,7 +60243,7 @@
       "id": "attr-popover-hint-state",
       "href": "https://html.spec.whatwg.org/multipage/popover.html#attr-popover-hint-state",
       "linkingText": [
-        "hint"
+        "Hint"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -60357,7 +60262,7 @@
       "id": "attr-popover-none-state",
       "href": "https://html.spec.whatwg.org/multipage/popover.html#attr-popover-none-state",
       "linkingText": [
-        "no popover"
+        "No Popover"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -60945,7 +60850,7 @@
       "id": "attr-popovertargetaction-toggle-state",
       "href": "https://html.spec.whatwg.org/multipage/popover.html#attr-popovertargetaction-toggle-state",
       "linkingText": [
-        "toggle"
+        "Toggle"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -60985,7 +60890,7 @@
       "id": "attr-popovertargetaction-show-state",
       "href": "https://html.spec.whatwg.org/multipage/popover.html#attr-popovertargetaction-show-state",
       "linkingText": [
-        "show"
+        "Show"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -61025,7 +60930,7 @@
       "id": "attr-popovertargetaction-hide-state",
       "href": "https://html.spec.whatwg.org/multipage/popover.html#attr-popovertargetaction-hide-state",
       "linkingText": [
-        "hide"
+        "Hide"
       ],
       "localLinkingText": [],
       "type": "dfn",
@@ -71702,6 +71607,25 @@
       "definedIn": "prose"
     },
     {
+      "id": "is-created-by-web-content",
+      "href": "https://html.spec.whatwg.org/multipage/document-sequences.html#is-created-by-web-content",
+      "linkingText": [
+        "is created by web content"
+      ],
+      "localLinkingText": [],
+      "type": "dfn",
+      "for": [],
+      "access": "private",
+      "informative": false,
+      "heading": {
+        "id": "traversable-navigables",
+        "href": "https://html.spec.whatwg.org/multipage/document-sequences.html#traversable-navigables",
+        "title": "Traversable navigables",
+        "number": "7.3.1.1"
+      },
+      "definedIn": "prose"
+    },
+    {
       "id": "nav-traversable",
       "href": "https://html.spec.whatwg.org/multipage/document-sequences.html#nav-traversable",
       "linkingText": [
@@ -74774,6 +74698,27 @@
       "localLinkingText": [],
       "type": "dfn",
       "for": [],
+      "access": "private",
+      "informative": false,
+      "heading": {
+        "id": "beginning-navigation",
+        "href": "https://html.spec.whatwg.org/multipage/browsing-the-web.html#beginning-navigation",
+        "title": "Beginning navigation",
+        "number": "7.4.2.2"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "navigation-initial-insertion",
+      "href": "https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigation-initial-insertion",
+      "linkingText": [
+        "initialInsertion"
+      ],
+      "localLinkingText": [],
+      "type": "dfn",
+      "for": [
+        "navigate"
+      ],
       "access": "private",
       "informative": false,
       "heading": {
@@ -86926,6 +86871,389 @@
       "definedIn": "prose"
     },
     {
+      "id": "imagedataarray",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#imagedataarray",
+      "linkingText": [
+        "ImageDataArray"
+      ],
+      "localLinkingText": [],
+      "type": "typedef",
+      "for": [],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "the-imagedata-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagedata-interface",
+        "title": "The ImageData interface",
+        "number": "8.10.1"
+      },
+      "definedIn": "pre"
+    },
+    {
+      "id": "imagedatapixelformat",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#imagedatapixelformat",
+      "linkingText": [
+        "ImageDataPixelFormat"
+      ],
+      "localLinkingText": [],
+      "type": "enum",
+      "for": [],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "the-imagedata-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagedata-interface",
+        "title": "The ImageData interface",
+        "number": "8.10.1"
+      },
+      "definedIn": "pre"
+    },
+    {
+      "id": "imagedatasettings",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#imagedatasettings",
+      "linkingText": [
+        "ImageDataSettings"
+      ],
+      "localLinkingText": [],
+      "type": "dictionary",
+      "for": [],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "the-imagedata-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagedata-interface",
+        "title": "The ImageData interface",
+        "number": "8.10.1"
+      },
+      "definedIn": "pre"
+    },
+    {
+      "id": "imagedata",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#imagedata",
+      "linkingText": [
+        "ImageData"
+      ],
+      "localLinkingText": [],
+      "type": "interface",
+      "for": [],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "the-imagedata-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagedata-interface",
+        "title": "The ImageData interface",
+        "number": "8.10.1"
+      },
+      "definedIn": "pre"
+    },
+    {
+      "id": "concept-imagedata-bitmap-representation",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#concept-imagedata-bitmap-representation",
+      "linkingText": [
+        "represents a rectanglar bitmap"
+      ],
+      "localLinkingText": [],
+      "type": "dfn",
+      "for": [],
+      "access": "private",
+      "informative": false,
+      "heading": {
+        "id": "the-imagedata-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagedata-interface",
+        "title": "The ImageData interface",
+        "number": "8.10.1"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "dom-imagedata",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#dom-imagedata",
+      "linkingText": [
+        "new ImageData(sw, sh, settings)"
+      ],
+      "localLinkingText": [],
+      "type": "constructor",
+      "for": [
+        "ImageData"
+      ],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "the-imagedata-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagedata-interface",
+        "title": "The ImageData interface",
+        "number": "8.10.1"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "dom-imagedata-with-data",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#dom-imagedata-with-data",
+      "linkingText": [
+        "new ImageData(data, sw, sh, settings)"
+      ],
+      "localLinkingText": [],
+      "type": "constructor",
+      "for": [
+        "ImageData"
+      ],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "the-imagedata-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagedata-interface",
+        "title": "The ImageData interface",
+        "number": "8.10.1"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "initialize-an-imagedata-object",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#initialize-an-imagedata-object",
+      "linkingText": [
+        "initialize an ImageData object"
+      ],
+      "localLinkingText": [],
+      "type": "dfn",
+      "for": [],
+      "access": "private",
+      "informative": false,
+      "heading": {
+        "id": "the-imagedata-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagedata-interface",
+        "title": "The ImageData interface",
+        "number": "8.10.1"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "initialize-imagedata-source",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#initialize-imagedata-source",
+      "linkingText": [
+        "source"
+      ],
+      "localLinkingText": [],
+      "type": "dfn",
+      "for": [],
+      "access": "private",
+      "informative": false,
+      "heading": {
+        "id": "the-imagedata-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagedata-interface",
+        "title": "The ImageData interface",
+        "number": "8.10.1"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "initialize-imagedata-defaultcolorspace",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#initialize-imagedata-defaultcolorspace",
+      "linkingText": [
+        "defaultColorSpace"
+      ],
+      "localLinkingText": [],
+      "type": "dfn",
+      "for": [],
+      "access": "private",
+      "informative": false,
+      "heading": {
+        "id": "the-imagedata-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagedata-interface",
+        "title": "The ImageData interface",
+        "number": "8.10.1"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "dom-imagedata-data",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#dom-imagedata-data",
+      "linkingText": [
+        "data"
+      ],
+      "localLinkingText": [],
+      "type": "attribute",
+      "for": [
+        "ImageData"
+      ],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "the-imagedata-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagedata-interface",
+        "title": "The ImageData interface",
+        "number": "8.10.1"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "dom-imagedata-width",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#dom-imagedata-width",
+      "linkingText": [
+        "width"
+      ],
+      "localLinkingText": [],
+      "type": "attribute",
+      "for": [
+        "ImageData"
+      ],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "the-imagedata-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagedata-interface",
+        "title": "The ImageData interface",
+        "number": "8.10.1"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "dom-imagedata-height",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#dom-imagedata-height",
+      "linkingText": [
+        "height"
+      ],
+      "localLinkingText": [],
+      "type": "attribute",
+      "for": [
+        "ImageData"
+      ],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "the-imagedata-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagedata-interface",
+        "title": "The ImageData interface",
+        "number": "8.10.1"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "dom-imagedata-pixelformat",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#dom-imagedata-pixelformat",
+      "linkingText": [
+        "pixelFormat"
+      ],
+      "localLinkingText": [],
+      "type": "attribute",
+      "for": [
+        "ImageData"
+      ],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "the-imagedata-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagedata-interface",
+        "title": "The ImageData interface",
+        "number": "8.10.1"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "dom-imagedatasettings-pixelformat",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#dom-imagedatasettings-pixelformat",
+      "linkingText": [
+        "pixelFormat"
+      ],
+      "localLinkingText": [],
+      "type": "dict-member",
+      "for": [
+        "ImageDataSettings"
+      ],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "the-imagedata-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagedata-interface",
+        "title": "The ImageData interface",
+        "number": "8.10.1"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "dom-imagedata-colorspace",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#dom-imagedata-colorspace",
+      "linkingText": [
+        "colorSpace"
+      ],
+      "localLinkingText": [],
+      "type": "attribute",
+      "for": [
+        "ImageData"
+      ],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "the-imagedata-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagedata-interface",
+        "title": "The ImageData interface",
+        "number": "8.10.1"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "dom-imagedatasettings-colorspace",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#dom-imagedatasettings-colorspace",
+      "linkingText": [
+        "colorSpace"
+      ],
+      "localLinkingText": [],
+      "type": "dict-member",
+      "for": [
+        "ImageDataSettings"
+      ],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "the-imagedata-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagedata-interface",
+        "title": "The ImageData interface",
+        "number": "8.10.1"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "dom-imagedatapixelformat-rgba-unorm8",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#dom-imagedatapixelformat-rgba-unorm8",
+      "linkingText": [
+        "rgba-unorm8"
+      ],
+      "localLinkingText": [],
+      "type": "enum-value",
+      "for": [
+        "ImageDataPixelFormat"
+      ],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "the-imagedata-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagedata-interface",
+        "title": "The ImageData interface",
+        "number": "8.10.1"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "dom-imagedatapixelformat-rgba-float16",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#dom-imagedatapixelformat-rgba-float16",
+      "linkingText": [
+        "rgba-float16"
+      ],
+      "localLinkingText": [],
+      "type": "enum-value",
+      "for": [
+        "ImageDataPixelFormat"
+      ],
+      "access": "public",
+      "informative": false,
+      "heading": {
+        "id": "the-imagedata-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagedata-interface",
+        "title": "The ImageData interface",
+        "number": "8.10.1"
+      },
+      "definedIn": "prose"
+    },
+    {
       "id": "imagebitmap",
       "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#imagebitmap",
       "linkingText": [
@@ -86937,10 +87265,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "pre"
     },
@@ -86956,10 +87284,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "pre"
     },
@@ -86975,10 +87303,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "pre"
     },
@@ -86994,10 +87322,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "pre"
     },
@@ -87013,10 +87341,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "pre"
     },
@@ -87032,10 +87360,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "pre"
     },
@@ -87051,10 +87379,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "pre"
     },
@@ -87070,10 +87398,10 @@
       "access": "private",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87089,10 +87417,29 @@
       "access": "private",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
+      },
+      "definedIn": "prose"
+    },
+    {
+      "id": "bitmap-task-source",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#bitmap-task-source",
+      "linkingText": [
+        "bitmap task source"
+      ],
+      "localLinkingText": [],
+      "type": "dfn",
+      "for": [],
+      "access": "private",
+      "informative": false,
+      "heading": {
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87110,10 +87457,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87131,10 +87478,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87152,10 +87499,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87171,10 +87518,10 @@
       "access": "private",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87192,10 +87539,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87213,10 +87560,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87234,10 +87581,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87255,10 +87602,10 @@
       "access": "public",
       "informative": true,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "note"
     },
@@ -87274,10 +87621,10 @@
       "access": "private",
       "informative": true,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "note"
     },
@@ -87295,10 +87642,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87316,10 +87663,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87337,10 +87684,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87358,10 +87705,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87379,10 +87726,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87400,10 +87747,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87421,10 +87768,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87442,10 +87789,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87463,10 +87810,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87484,10 +87831,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87505,10 +87852,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87526,10 +87873,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87547,10 +87894,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
@@ -87568,10 +87915,10 @@
       "access": "public",
       "informative": false,
       "heading": {
-        "id": "images-2",
-        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#images-2",
-        "title": "Images",
-        "number": "8.10"
+        "id": "the-imagebitmap-interface",
+        "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#the-imagebitmap-interface",
+        "title": "The ImageBitmap interface",
+        "number": "8.10.2"
       },
       "definedIn": "prose"
     },
