@@ -82,7 +82,7 @@
         (let ((class-name ',(make-class-name name)))
           `(let ((object (apply #'make-instance ',class-name
                           :body (apply #'vector (list ,@body))
-                          :html-fmt ,(when fmt fmt)
+                          :fmt ,(when fmt fmt)
                           (list ,@attrs))))
              (traverse object (lambda (obj)
                                 (typecase obj
@@ -108,7 +108,7 @@
   ((parent    :initarg :parent   :accessor parent)
    (x-pos     :initarg :x-pos    :accessor x-pos)
    (y-pos     :initarg :y-pos    :accessor y-pos)
-   (html-fmt  :initarg :html-fmt :accessor html-fmt)
+   (html-fmt  :initarg :fmt      :accessor html-fmt)
    (html-body :initarg :body     :accessor html-body))
   (:metaclass fragment-meta)
   (:documentation "An abstract middleware class between XHTML and every
