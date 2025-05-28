@@ -15,20 +15,21 @@
     (let* ((filter-slots (slot-names (c2mop:class-slots (find-class 'xhtml))))
            (slot-list (set-difference (slot-names (c2mop:class-slots (class-of object)))
                                       filter-slots
-                                      :key #'car)))
-      (remove-if-not (lambda (x) (slot-boundp object (car x)))
-                     slot-list))))
+                                      :key #'car))
+           (slots-out (remove-if-not (lambda (x) (slot-boundp object (car x)))
+                                     slot-list)))
+      (mapcar (lambda (x)
+                (list (cdr x) (slot-value object (car x))))
+              slots-out))))
 
 (defmethod print-object ((object elem-global) stream)
   (with-slots (html-body depth attr-class attr-id) object
     (print-unreadable-object (object stream)
-      (format stream "~a ~@[~a ~]~@[~a ~]~@<~:_~a~:>"
+      (format stream "~a~@[ ~{~<~s ~s~:>~}~]~@[ ~@<~:_~a~:>~]"
               (truncate-name object)
-              (when (slot-boundp object 'attr-class)
-                (format nil ":CLASS ~s" attr-class))
-              (when (slot-boundp object 'attr-id)
-                (format nil ":ID ~s" attr-id))
-              (when html-body html-body)))))
+              (bound-slots object)
+              (if (equalp #() html-body) nil
+                  html-body)))))
 
 (defmethod print-object ((object fragment) stream)
   (print-unreadable-object (object stream :type t)
