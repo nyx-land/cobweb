@@ -61,19 +61,20 @@
 
 (defmethod html-writer ((stream stream) (object xhtml)
                         &optional at colon (indent nil))
-  (declare (ignorable at colon))
-  (let* ((tag (when (car (tag (class-of object))) (truncate-name object)))
-         (slot-list (bound-slots object)))
-    (format stream "~@[~vt~]~@[<~(~a~)~@?>~]~@?~@[~vt~]~@[</~(~a~)>~%~]"
-            indent
-            tag
-            "~@[ ~{~<~(~a~)=\"~a\"~:>~}~]"
-            slot-list
-            "~@[~%~v/cobweb.user::html-writer/~]"
-            (if indent (+ 2 indent) 2)
-            (html-body object)
-            indent
-            tag)))
+  (if (html-fmt object)
+      (funcall (html-fmt object) stream object at colon indent)
+      (let* ((tag (when (car (tag (class-of object))) (truncate-name object)))
+             (slot-list (bound-slots object)))
+        (format stream "~@[~vt~]~@[<~(~a~)~@?>~]~@?~@[~vt~]~@[</~(~a~)>~%~]"
+                indent
+                tag
+                "~@[ ~{~<~(~a~)=\"~a\"~:>~}~]"
+                slot-list
+                "~@[~%~v/cobweb.user::html-writer/~]"
+                (if indent (+ 2 indent) 2)
+                (html-body object)
+                indent
+                tag))))
 
 (defmethod html-writer ((stream stream) (object list)
                         &optional at colon (indent nil))
