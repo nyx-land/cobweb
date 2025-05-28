@@ -62,8 +62,9 @@
 
 (defun traverse (object fn)
   (funcall fn object)
-  (loop for x across (html-body object)
-        do (funcall #'traverse x fn)))
+  (when (slot-exists-p object 'html-body)
+    (loop for x across (html-body object)
+          do (funcall #'traverse x fn))))
 
 (defmacro deftag (name supers tag &rest attrs)
   `(values
@@ -82,10 +83,15 @@
                           :body (apply #'vector (list ,@body))
                           (list ,@attrs))))
              (traverse object (lambda (obj)
-                                (incf (x-pos obj))))
+                                (typecase obj
+                                  (fragment (incf (x-pos obj)))
+                                  (t obj))))
              (loop for x across (html-body object)
-                   do (setf (parent x) object)
-                      (incf (y-pos x)))
+                   do (typecase x
+                        (fragment
+                         (setf (parent x) object)
+                         (incf (y-pos x)))
+                        (t x)))
              (render object)))))))
 
 (defmethod initialize-instance :after ((class xhtml-meta)
@@ -113,6 +119,9 @@ HTML element.")
    :parent :root
    :x-pos 0
    :y-pos 0))
+
+(c2mop:ensure-finalized (find-class 'fragment))
+(c2mop:ensure-finalized (find-class 'xhtml))
 
 (defclass non-conforming-features () ()
   (:metaclass xhtml-meta)
