@@ -2,7 +2,7 @@
   (:use :cl)
   (:export :*global-attrs*
    :xhtml-meta :fragment-meta
-   :fragment :xhtml :html-body
+   :fragment :xhtml :html-body :html-fmt
    :parent :x-pos :y-pos :traverse
    :tag :deftag :render))
 
