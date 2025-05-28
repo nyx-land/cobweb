@@ -25,7 +25,7 @@
 (defmethod print-object ((object elem-global) stream)
   (with-slots (html-body depth attr-class attr-id) object
     (print-unreadable-object (object stream)
-      (format stream "~a~@[ ~{~<~s ~s~:> ~}~]~@[ ~@<~:_~a~:>~]"
+      (format stream "~@<~a~@[ ~{~:_~2i~<~s ~s~:>~^ ~}~]~@[ ~:_~a~]~:>"
               (truncate-name object)
               (bound-slots object)
               (if (equalp #() html-body) nil
