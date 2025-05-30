@@ -29,7 +29,8 @@ web it's unlikely that it'll change drastically anytime soon.
 
 You may not have any use case for this and be better off with
 Spinneret or CL-WHO, but for my own purposes, I wanted to be able to
-implement some fancy features for Cobweb's sister project Widow and
+implement some fancy features for Cobweb's sister project Widow (TBD
+when it's in a working enough state to put up somewhere publicly) and
 being able to use the MOP seemed like the best way to do it.
 
 ** Caveats & Self-Criticism
@@ -40,12 +41,14 @@ symbols. I wanted Cobweb to be as natural and fast as possible to use
 within Common Lisp: no intermediary parsing step, no weird naming
 schemes for the HTML tags, no having to call functions to escape from
 a parsing context like CL-WHO does, no hacking together a templating
-system using CL macros. But this has the cost that there are naming
-conflicts, and I haven't yet decided how I want to handle it.
+system using CL macros like Spinneret does. No shade against either of
+those projects, they just didn't feel right to use for me. My design
+however has the cost of naming conflicts, and I haven't yet decided
+how I want to handle it.
 
-Cobweb is in need of additional dogfooding, and is not yet 1.0 ready,
-so the API may change while I continue to hash out the design of this
-thing.  But it's been working quite well for me so far.
+Cobweb is also in need of additional dogfooding, and is not yet 1.0
+ready, so the API may change while I continue to hash out the design
+of this thing. But it's been working quite well for me so far.
 
 ** Installation
 

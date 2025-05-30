@@ -1,14 +1,14 @@
-- [Cobweb 🕸](#orga5c2265)
-  - [Why would I want this?](#org6acd147)
-  - [Caveats & Self-Criticism](#org788c030)
-  - [Installation](#org16dfb13)
-  - [Usage](#org1d76ab5)
-    - [Customizing the Formatter](#org43dfc54)
-- [A Note on `COBWEB-GEN`](#org0bad3d9)
-- [Potential Improvements](#org26da28e)
+- [Cobweb 🕸](#orgb4d1bd9)
+  - [Why would I want this?](#org3b2428c)
+  - [Caveats & Self-Criticism](#orgc04c24b)
+  - [Installation](#org3a08646)
+  - [Usage](#org7f8c791)
+    - [Customizing the Formatter](#org5dfa83f)
+- [A Note on `COBWEB-GEN`](#orged82120)
+- [Potential Improvements](#org69bfb9e)
 
 
-<a id="orga5c2265"></a>
+<a id="orgb4d1bd9"></a>
 
 # Cobweb 🕸
 
@@ -19,23 +19,23 @@ Unlike the other sexp emitters that currently exist for CL, Cobweb isn't just a 
 Cobweb also has the advantage of being generated from the W3 spec rather than at the discretion of the implementer or by relying on a simple non-validating macro system. It turns out that it's rather trivial to do this thanks to the machine-readable version that W3 provides, and with how important backwards-compatibility is for the web it's unlikely that it'll change drastically anytime soon.
 
 
-<a id="org6acd147"></a>
+<a id="org3b2428c"></a>
 
 ## Why would I want this?
 
-You may not have any use case for this and be better off with Spinneret or CL-WHO, but for my own purposes, I wanted to be able to implement some fancy features for Cobweb's sister project Widow and being able to use the MOP seemed like the best way to do it.
+You may not have any use case for this and be better off with Spinneret or CL-WHO, but for my own purposes, I wanted to be able to implement some fancy features for Cobweb's sister project Widow (TBD when it's in a working enough state to put up somewhere publicly) and being able to use the MOP seemed like the best way to do it.
 
 
-<a id="org788c030"></a>
+<a id="orgc04c24b"></a>
 
 ## Caveats & Self-Criticism
 
-At the moment I have the `SEARCH`, `TIME`, and `MAP` HTML tags commented out because they conflict with the ANSI Common Lisp symbols. I wanted Cobweb to be as natural and fast as possible to use within Common Lisp: no intermediary parsing step, no weird naming schemes for the HTML tags, no having to call functions to escape from a parsing context like CL-WHO does, no hacking together a templating system using CL macros. But this has the cost that there are naming conflicts, and I haven't yet decided how I want to handle it.
+At the moment I have the `SEARCH`, `TIME`, and `MAP` HTML tags commented out because they conflict with the ANSI Common Lisp symbols. I wanted Cobweb to be as natural and fast as possible to use within Common Lisp: no intermediary parsing step, no weird naming schemes for the HTML tags, no having to call functions to escape from a parsing context like CL-WHO does, no hacking together a templating system using CL macros like Spinneret does. No shade against either of those projects, they just didn't feel right to use for me. My design however has the cost of naming conflicts, and I haven't yet decided how I want to handle it.
 
-Cobweb is in need of additional dogfooding, and is not yet 1.0 ready, so the API may change while I continue to hash out the design of this thing. But it's been working quite well for me so far.
+Cobweb is also in need of additional dogfooding, and is not yet 1.0 ready, so the API may change while I continue to hash out the design of this thing. But it's been working quite well for me so far.
 
 
-<a id="org16dfb13"></a>
+<a id="org3a08646"></a>
 
 ## Installation
 
@@ -44,7 +44,7 @@ You will need to clone this [somewhere that ASDF can find it](https://asdf.commo
 All the symbols are exported from the `COBWEB` package for convenience (pending better package organization).
 
 
-<a id="org1d76ab5"></a>
+<a id="org7f8c791"></a>
 
 ## Usage
 
@@ -185,7 +185,7 @@ USER>
 ```
 
 
-<a id="org43dfc54"></a>
+<a id="org5dfa83f"></a>
 
 ### Customizing the Formatter
 
@@ -232,7 +232,7 @@ USER>
 ```
 
 
-<a id="org0bad3d9"></a>
+<a id="orged82120"></a>
 
 # A Note on `COBWEB-GEN`
 
@@ -253,7 +253,7 @@ T
 ```
 
 
-<a id="org26da28e"></a>
+<a id="org69bfb9e"></a>
 
 # Potential Improvements
 
