@@ -32,6 +32,21 @@ Spinneret or CL-WHO, but for my own purposes, I wanted to be able to
 implement some fancy features for Cobweb's sister project Widow and
 being able to use the MOP seemed like the best way to do it.
 
+** Caveats & Self-Criticism
+
+At the moment I have the =SEARCH=, =TIME=, and =MAP= HTML tags
+commented out because they conflict with the ANSI Common Lisp
+symbols. I wanted Cobweb to be as natural and fast as possible to use
+within Common Lisp: no intermediary parsing step, no weird naming
+schemes for the HTML tags, no having to call functions to escape from
+a parsing context like CL-WHO does, no hacking together a templating
+system using CL macros. But this has the cost that there are naming
+conflicts, and I haven't yet decided how I want to handle it.
+
+Cobweb is in need of additional dogfooding, and is not yet 1.0 ready,
+so the API may change while I continue to hash out the design of this
+thing.  But it's been working quite well for me so far.
+
 ** Installation
 
 You will need to clone this [[https://asdf.common-lisp.dev/asdf.html#Configuring-ASDF-to-find-your-systems][somewhere that ASDF can find it]], unless I
