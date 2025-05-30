@@ -1,14 +1,14 @@
-- [Cobweb 🕸](#org14dde77)
-  - [Why would I want this?](#orged25501)
-  - [Caveats & Self-Criticism](#orgeda244a)
-  - [Installation](#org626e456)
-  - [Usage](#org5e069ad)
-    - [Customizing the Formatter](#org50726ee)
-- [A Note on `COBWEB-GEN`](#org4a0894f)
-- [Potential Improvements](#org8b8402b)
+- [Cobweb 🕸](#org8d1d783)
+  - [Why would I want this?](#org1288a82)
+  - [Caveats & Self-Criticism](#org53e1cca)
+  - [Installation](#orgab8ff02)
+  - [Usage](#org2487283)
+    - [Customizing the Formatter](#org9b2ed58)
+- [A Note on `COBWEB-GEN`](#org562e632)
+- [Potential Improvements](#org1a18909)
 
 
-<a id="org14dde77"></a>
+<a id="org8d1d783"></a>
 
 # Cobweb 🕸
 
@@ -19,14 +19,14 @@ Unlike the other sexp emitters that currently exist for CL, Cobweb isn't just a 
 Cobweb also has the advantage of being generated from the W3 spec rather than at the discretion of the implementer or by relying on a simple non-validating macro system. It turns out that it's rather trivial to do this thanks to the machine-readable version that W3 provides, and with how important backwards-compatibility is for the web it's unlikely that it'll change drastically anytime soon.
 
 
-<a id="orged25501"></a>
+<a id="org1288a82"></a>
 
 ## Why would I want this?
 
 You may not have any use case for this and be better off with Spinneret or CL-WHO, but for my own purposes, I wanted to be able to implement some fancy features for Cobweb's sister project Widow (TBD when it's in a working enough state to put up somewhere publicly) and being able to use the MOP seemed like the best way to do it.
 
 
-<a id="orgeda244a"></a>
+<a id="org53e1cca"></a>
 
 ## Caveats & Self-Criticism
 
@@ -35,7 +35,7 @@ At the moment I have the `SEARCH`, `TIME`, and `MAP` HTML tags commented out bec
 Cobweb is also in need of additional dogfooding, and is not yet 1.0 ready, so the API may change while I continue to hash out the design of this thing. But it's been working quite well for me so far.
 
 
-<a id="org626e456"></a>
+<a id="orgab8ff02"></a>
 
 ## Installation
 
@@ -44,7 +44,7 @@ You will need to clone this [somewhere that ASDF can find it](https://asdf.commo
 All the symbols are exported from the `COBWEB` package for convenience (pending better package organization).
 
 
-<a id="org5e069ad"></a>
+<a id="org2487283"></a>
 
 ## Usage
 
@@ -182,7 +182,7 @@ USER>
 ```
 
 
-<a id="org50726ee"></a>
+<a id="org9b2ed58"></a>
 
 ### Customizing the Formatter
 
@@ -227,7 +227,7 @@ USER>
 ```
 
 
-<a id="org4a0894f"></a>
+<a id="org562e632"></a>
 
 # A Note on `COBWEB-GEN`
 
@@ -243,12 +243,12 @@ To load "cobweb-gen":
 (:COBWEB-GEN)
 CL-USER> (in-package :cobweb-gen)
 #<PACKAGE "COBWEB-GEN">
-COBWEB-GEN> (write-files (get-spec))
+COBWEB-GEN> (main)
 T
 ```
 
 
-<a id="org8b8402b"></a>
+<a id="org1a18909"></a>
 
 # Potential Improvements
 

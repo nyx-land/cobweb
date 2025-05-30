@@ -273,7 +273,7 @@ To load "cobweb-gen":
 (:COBWEB-GEN)
 CL-USER> (in-package :cobweb-gen)
 #<PACKAGE "COBWEB-GEN">
-COBWEB-GEN> (write-files (get-spec))
+COBWEB-GEN> (main)
 T
 #+end_src
 
