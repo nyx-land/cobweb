@@ -119,9 +119,9 @@ USER> (let ((css #P"/static/css/style.css")
                              collect (li () line))))))))
 <html>
   <head>
-    <link rel="stylesheet"href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style.css">
     </link>
-    <meta name="viewport"content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </meta>
     <title>
       Spiders by Ashbury Heights
@@ -172,9 +172,6 @@ USER> (let ((css #P"/static/css/style.css")
         </li>
         <li>
           This quaint arachnid hearse
-        </li>
-        <li>
-          
         </li>
       </ol>
     </body>
@@ -249,14 +246,12 @@ USER> (let ((lyrics (uiop:split-string
 <span>How every second knocks</span>
 <span>I wish I could reverse</span>
 <span>This quaint arachnid hearse</span>
-<span></span>
 ((#<SPAN #(Time moves like spiders)> #<SPAN #(Over the face of the clock)>
   #<SPAN #(Time's forward violence)> #<SPAN #(Eating away at the heart)>
   #<SPAN #()> #<SPAN #(Another hour's past)> #<SPAN #(They never seem to last)>
   #<SPAN #(Another day goes by)> #<SPAN #(No matter how I try)> #<SPAN #()>
   #<SPAN #(I've come to hate all clocks)> #<SPAN #(How every second knocks)>
-  #<SPAN #(I wish I could reverse)> #<SPAN #(This quaint arachnid hearse)>
-  #<SPAN #()>))
+  #<SPAN #(I wish I could reverse)> #<SPAN #(This quaint arachnid hearse)>))
 NIL
 USER> 
 #+end_src

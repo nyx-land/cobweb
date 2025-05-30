@@ -32,7 +32,7 @@
                       (html-body object))))))
 
 (defun format-tag (stream object &rest body)
-  (format stream "~@[<~(~a~)~@[ ~{~<~(~a~)=\"~a\"~:>~}~]>~]~{~@?~}~@[</~(~a~)>~]"
+  (format stream "~@[<~(~a~)~@[ ~{~<~(~a~)=\"~a\"~:>~^ ~}~]>~]~{~@?~}~@[</~(~a~)>~]"
           (car (tag (class-of object)))
           (bound-attrs object)
           body

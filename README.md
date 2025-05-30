@@ -1,14 +1,14 @@
-- [Cobweb 🕸](#orgb4d1bd9)
-  - [Why would I want this?](#org3b2428c)
-  - [Caveats & Self-Criticism](#orgc04c24b)
-  - [Installation](#org3a08646)
-  - [Usage](#org7f8c791)
-    - [Customizing the Formatter](#org5dfa83f)
-- [A Note on `COBWEB-GEN`](#orged82120)
-- [Potential Improvements](#org69bfb9e)
+- [Cobweb 🕸](#org7075bbc)
+  - [Why would I want this?](#orgd0edf00)
+  - [Caveats & Self-Criticism](#org25ec0cb)
+  - [Installation](#orge557369)
+  - [Usage](#orgad0c3b5)
+    - [Customizing the Formatter](#org1153de6)
+- [A Note on `COBWEB-GEN`](#org330aadb)
+- [Potential Improvements](#orgc9b74d1)
 
 
-<a id="orgb4d1bd9"></a>
+<a id="org7075bbc"></a>
 
 # Cobweb 🕸
 
@@ -19,14 +19,14 @@ Unlike the other sexp emitters that currently exist for CL, Cobweb isn't just a 
 Cobweb also has the advantage of being generated from the W3 spec rather than at the discretion of the implementer or by relying on a simple non-validating macro system. It turns out that it's rather trivial to do this thanks to the machine-readable version that W3 provides, and with how important backwards-compatibility is for the web it's unlikely that it'll change drastically anytime soon.
 
 
-<a id="org3b2428c"></a>
+<a id="orgd0edf00"></a>
 
 ## Why would I want this?
 
 You may not have any use case for this and be better off with Spinneret or CL-WHO, but for my own purposes, I wanted to be able to implement some fancy features for Cobweb's sister project Widow (TBD when it's in a working enough state to put up somewhere publicly) and being able to use the MOP seemed like the best way to do it.
 
 
-<a id="orgc04c24b"></a>
+<a id="org25ec0cb"></a>
 
 ## Caveats & Self-Criticism
 
@@ -35,7 +35,7 @@ At the moment I have the `SEARCH`, `TIME`, and `MAP` HTML tags commented out bec
 Cobweb is also in need of additional dogfooding, and is not yet 1.0 ready, so the API may change while I continue to hash out the design of this thing. But it's been working quite well for me so far.
 
 
-<a id="org3a08646"></a>
+<a id="orge557369"></a>
 
 ## Installation
 
@@ -44,7 +44,7 @@ You will need to clone this [somewhere that ASDF can find it](https://asdf.commo
 All the symbols are exported from the `COBWEB` package for convenience (pending better package organization).
 
 
-<a id="org7f8c791"></a>
+<a id="orgad0c3b5"></a>
 
 ## Usage
 
@@ -100,9 +100,9 @@ USER> (let ((css #P"/static/css/style.css")
                              collect (li () line))))))))
 <html>
   <head>
-    <link rel="stylesheet"href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style.css">
     </link>
-    <meta name="viewport"content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </meta>
     <title>
       Spiders by Ashbury Heights
@@ -154,9 +154,6 @@ USER> (let ((css #P"/static/css/style.css")
         <li>
           This quaint arachnid hearse
         </li>
-        <li>
-
-        </li>
       </ol>
     </body>
   </head>
@@ -185,7 +182,7 @@ USER>
 ```
 
 
-<a id="org5dfa83f"></a>
+<a id="org1153de6"></a>
 
 ### Customizing the Formatter
 
@@ -219,20 +216,18 @@ USER> (let ((lyrics (uiop:split-string
 <span>How every second knocks</span>
 <span>I wish I could reverse</span>
 <span>This quaint arachnid hearse</span>
-<span></span>
 ((#<SPAN #(Time moves like spiders)> #<SPAN #(Over the face of the clock)>
   #<SPAN #(Time's forward violence)> #<SPAN #(Eating away at the heart)>
   #<SPAN #()> #<SPAN #(Another hour's past)> #<SPAN #(They never seem to last)>
   #<SPAN #(Another day goes by)> #<SPAN #(No matter how I try)> #<SPAN #()>
   #<SPAN #(I've come to hate all clocks)> #<SPAN #(How every second knocks)>
-  #<SPAN #(I wish I could reverse)> #<SPAN #(This quaint arachnid hearse)>
-  #<SPAN #()>))
+  #<SPAN #(I wish I could reverse)> #<SPAN #(This quaint arachnid hearse)>))
 NIL
 USER> 
 ```
 
 
-<a id="orged82120"></a>
+<a id="org330aadb"></a>
 
 # A Note on `COBWEB-GEN`
 
@@ -253,7 +248,7 @@ T
 ```
 
 
-<a id="org69bfb9e"></a>
+<a id="orgc9b74d1"></a>
 
 # Potential Improvements
 
