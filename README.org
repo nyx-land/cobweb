@@ -195,7 +195,7 @@ USER> (let ((css #P"/static/css/style.css")
                   #<LI #()> #<LI #(I've come to hate all clocks)>
                   #<LI #(How every second knocks)>
                   #<LI #(I wish I could reverse)>
-                  #<LI #(This quaint arachnid hearse)> #<LI #()>))>)>)>)>)
+                  #<LI #(This quaint arachnid hearse)>))>)>)>)>)
 NIL
 USER>
 #+end_src
