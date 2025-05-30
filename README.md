@@ -1,12 +1,13 @@
-- [Cobweb 🕸](#org9fe2fd4)
-  - [Why would I want this?](#orgb0aae2c)
-  - [Installation](#orga6dd457)
-  - [Usage](#org8bf8eaa)
-- [A Note on `COBWEB-GEN`](#org5f6a2c0)
-- [Potential Improvements](#orgecda9eb)
+- [Cobweb 🕸](#orgfe8db84)
+  - [Why would I want this?](#org6577161)
+  - [Installation](#org60f5d27)
+  - [Usage](#org54b5ddf)
+    - [Customizing the Formatter](#orgee3f22c)
+- [A Note on `COBWEB-GEN`](#org8f27117)
+- [Potential Improvements](#orgf2f3731)
 
 
-<a id="org9fe2fd4"></a>
+<a id="orgfe8db84"></a>
 
 # Cobweb 🕸
 
@@ -17,29 +18,29 @@ Unlike the other sexp emitters that currently exist for CL, Cobweb isn't just a 
 Cobweb also has the advantage of being generated from the W3 spec rather than at the discretion of the implementer or by relying on a simple non-validating macro system. It turns out that it's rather trivial to do this thanks to the machine-readable version that W3 provides, and with how important backwards-compatibility is for the web it's unlikely that it'll change drastically anytime soon.
 
 
-<a id="orgb0aae2c"></a>
+<a id="org6577161"></a>
 
 ## Why would I want this?
 
 You may not have any use case for this and be better off with Spinneret or CL-WHO, but for my own purposes, I wanted to be able to implement some fancy features for Cobweb's sister project Widow and being able to use the MOP seemed like the best way to do it.
 
 
-<a id="orga6dd457"></a>
+<a id="org60f5d27"></a>
 
 ## Installation
 
-You will need to clone this [somewhere that ASDF can find it](https://asdf.common-lisp.dev/asdf.html#Configuring-ASDF-to-find-your-systems), unless I decide this project is good enough to submit to Quicklisp.
+You will need to clone this [somewhere that ASDF can find it](https://asdf.common-lisp.dev/asdf.html#Configuring-ASDF-to-find-your-systems), unless I decide this project is good enough to submit to Quicklisp. Then you can `(ql:quickload :cobweb)` it.
+
+All the symbols are exported from the `COBWEB` package for convenience (pending better package organization).
 
 
-<a id="org8bf8eaa"></a>
+<a id="org54b5ddf"></a>
 
 ## Usage
 
-Cobweb exports two macros, `WITH-HTML` and `WITH-HTML-WRITE`, along with all the classes and accessors and the writer function `HTML-WRITER`. `WITH-HTML` will just return the CLOS standard-objects, while `WITH-HTML-WRITE` can be used to write to stdout, a string, or a file, and also return the standard-objects if desired.
+Cobweb exports two macros, `WITH-HTML` and `WITH-HTML-WRITE`, along with all the classes and accessors and the writer function `HTML-WRITER`. For now we mainly care about `WITH-HTML-WRITE`.
 
-`WITH-HTML` just takes an s-expression `(&BODY BODY)` representing an HTML fragment and returns the element(s) as a vector of standard-objects
-
-`WITH-HTML-WRITE` also accepts `STREAM`. `STREAM` takes the same arguments as `FORMAT`: `NIL` returns a string, `T` prints to stdout, or otherwise it can be any other stream. It will return the written HTML and the objects.
+`WITH-HTML-WRITE` accepts a `STREAM` and an `&BODY` form to be read with `HTML-WRITER` and transformed into HTML. `STREAM` takes the same arguments as `FORMAT`: `NIL` returns a string, `T` prints to stdout, or otherwise it can be any other stream. It will return the written HTML and the objects.
 
 ```common-lisp
 CL-USER> (ql:quickload :cobweb)
@@ -47,125 +48,181 @@ To load "cobweb":
   Load 1 ASDF system:
     cobweb
 ; Loading "cobweb"
-[package cobweb]..
 
 (:COBWEB)
 CL-USER> (describe 'cobweb:with-html)
-COBWEB:WITH-HTML
+COBWEB.USER:WITH-HTML
   [symbol]
 
 WITH-HTML names a macro:
   Lambda-list: (&BODY BODY)
-  Source file: cl/cobweb/src/cobweb.lisp
-
+  Source file: /Users/nyx/code/projects/cl/cobweb/src/user.lisp
 ; No values
 CL-USER> (describe 'cobweb:with-html-write)
-COBWEB:WITH-HTML-WRITE
+COBWEB.USER:WITH-HTML-WRITE
   [symbol]
 
 WITH-HTML-WRITE names a macro:
-  Lambda-list: (STREAM RETURN &BODY BODY)
-  Source file: cl/cobweb/src/cobweb.lisp
+  Lambda-list: (STREAM &BODY BODY)
+  Source file: /Users/nyx/code/projects/cl/cobweb/src/user.lisp
+; No values
+CL-USER> 
 ```
 
 Here's an example that prints to stdout and returns the objects:
 
 ```common-lisp
-CL-USER> (let ((css #P"/static/css/style.css")
-               (lyrics (uiop:split-string
-                        (alexandria:read-file-into-string #P"~/lyrics.txt")
-                        :separator '(#\newline))))
-           (cobweb:with-html-write t
-             (html
-              (head
-               ;; you can reference variables from outside the scope
-               ;; and even evaluate functions whose output will be
-               ;; interpreted as HTML
-               (link :rel "stylesheet" :href (namestring css))
-               (meta :name "viewport" :content "width=device-width, initial-scale=1.0")
-               (title "Spiders"))
-              (body
-               (h1 "Time moves like spiders")
-               (let ((lyric-list (ol
-                                  ;; and you can generate elements from arbitrary functions
-                                  (loop for line in lyrics
-                                        collect (li line)))))
-                 ;; you can even set the attribute of an element
-                 ;; from within the `WITH-HTML' form the same way
-                 ;; you would with any other object
-
-                 lyric-list)))))
+CL-USER> (in-package :cobweb.user)
+#<PACKAGE "COBWEB.USER">
+USER> (let ((css #P"/static/css/style.css")
+            (lyrics (uiop:split-string
+                     (alexandria:read-file-into-string #P"~/lyrics.txt")
+                     :separator '(#\newline))))
+        (with-html-write t
+          (html ()
+            (head ()
+              (link (:rel "stylesheet" :href (namestring css)))
+              (meta (:name "viewport" :content "width=device-width, initial-scale=1.0"))
+              (title () "Spiders by Ashbury Heights")
+              (body ()
+                (h1 () "Spiders")
+                (ol () (loop for line in lyrics
+                             collect (li () line))))))))
 <html>
   <head>
-    <link href="/static/css/style.css" rel="stylesheet">
+    <link rel="stylesheet"href="/static/css/style.css">
     </link>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="viewport"content="width=device-width, initial-scale=1.0">
     </meta>
     <title>
-      Spiders
+      Spiders by Ashbury Heights
     </title>
+    <body>
+      <h1>
+        Spiders
+      </h1>
+      <ol>
+        <li>
+          Time moves like spiders
+        </li>
+        <li>
+          Over the face of the clock
+        </li>
+        <li>
+          Time's forward violence
+        </li>
+        <li>
+          Eating away at the heart
+        </li>
+        <li>
+
+        </li>
+        <li>
+          Another hour's past
+        </li>
+        <li>
+          They never seem to last
+        </li>
+        <li>
+          Another day goes by
+        </li>
+        <li>
+          No matter how I try
+        </li>
+        <li>
+
+        </li>
+        <li>
+          I've come to hate all clocks
+        </li>
+        <li>
+          How every second knocks
+        </li>
+        <li>
+          I wish I could reverse
+        </li>
+        <li>
+          This quaint arachnid hearse
+        </li>
+        <li>
+
+        </li>
+      </ol>
+    </body>
   </head>
-  <body>
-    <h1>
-      Time moves like spiders
-    </h1>
-    <ol class="lyrics">
-      <li>
-        Time moves like spiders
-      </li>
-      <li>
-        Over the face of the clock
-      </li>
-      <li>
-        Time's forward violence
-      </li>
-      <li>
-        Eating away at the heart
-      </li>
-      <li>
-
-      </li>
-      <li>
-        Another hour's past
-      </li>
-      <li>
-        They never seem to last
-      </li>
-      <li>
-        Another day goes by
-      </li>
-      <li>
-        No matter how I try
-      </li>
-      <li>
-
-      </li>
-    </ol>
-  </body>
 </html>
-#(#<HTML
-         #(#<HEAD #(#<LINK #()> #<META #()> #<TITLE #(Spiders)>)>
-           #<BODY
-                  #(#<H1 #(Time moves like spiders)>
-                    #<OL :CLASS "lyrics"
-                                         #((#<LI #(Time moves like spiders)>
-                                            #<LI #(Over the face of the clock)>
-                                            #<LI #(Time's forward violence)>
-                                            #<LI #(Eating away at the heart)>
-                                            #<LI #()>
-                                            #<LI #(Another hour's past)>
-                                            #<LI #(They never seem to last)>
-                                            #<LI #(Another day goes by)>
-                                            #<LI #(No matter how I try)>
-                                            #<LI #()>))>)>)>)
+(#<HTML
+   #(#<HEAD
+       #(#<LINK :REL "stylesheet" :HREF "/static/css/style.css">
+         #<META :NAME "viewport"
+             :CONTENT "width=device-width, initial-scale=1.0">
+         #<TITLE #(Spiders by Ashbury Heights)>
+         #<BODY
+           #(#<H1 #(Spiders)>
+             #<OL
+               #((#<LI #(Time moves like spiders)>
+                  #<LI #(Over the face of the clock)>
+                  #<LI #(Time's forward violence)>
+                  #<LI #(Eating away at the heart)> #<LI #()>
+                  #<LI #(Another hour's past)> #<LI #(They never seem to last)>
+                  #<LI #(Another day goes by)> #<LI #(No matter how I try)>
+                  #<LI #()> #<LI #(I've come to hate all clocks)>
+                  #<LI #(How every second knocks)>
+                  #<LI #(I wish I could reverse)>
+                  #<LI #(This quaint arachnid hearse)> #<LI #()>))>)>)>)>)
 NIL
-CL-USER>
+USER>
 ```
 
-`HTML-WRITER` is a method and can be customized like any other method to control how the HTML is printed. By default it'll pretty-print as best I could figure out how to do using `FORMAT`.
+
+<a id="orgee3f22c"></a>
+
+### Customizing the Formatter
+
+`HTML-WRITER` is a method and can be customized like any other method to control how the HTML is printed. By default it pretty-prints the HTML, but for even moar flexibility, every HTML macro in addition to having attribute keyword options also accepts a `FMT` keyword that can be used to customize the formatting for that individual object. If you do this, you must pass in a `LAMBDA` that takes five arguments: `(STREAM OBJECT &optional AT COLON INDENT)`. This is because when `HTML-WRITER` encounters an HTML object with the `FMT` slot bound, it calls it with all the args that `HTML-WRITER` receives since it recurses through a list of objects and makes calls to CL's `FORMAT` to handle printing everything nicely.
+
+For convenience, you may also use the `FORMAT-HTML` function that Cobweb exports within your custom `FMT` lambda to handle printing out tags and attributes. For instance, here's a way to disable pretty-printing entirely (useful if you're enclosing something in a tag that uses `PRE` style whitespacing):
+
+```common-lisp
+USER> (let ((lyrics (uiop:split-string
+                     (alexandria:read-file-into-string #P"~/lyrics.txt")
+                     :separator '(#\newline))))
+        (with-html-write t 
+          (loop for line in lyrics
+                collect (span (:fmt (lambda (s obj &optional at colon indent)
+                                      (declare (ignore at colon indent))
+                                      (format-tag s obj
+                                                  "~{~a~}" (coerce (html-body obj) 'list))
+                                      (format s "~%")))
+                          line))))
+<span>Time moves like spiders</span>
+<span>Over the face of the clock</span>
+<span>Time's forward violence</span>
+<span>Eating away at the heart</span>
+<span></span>
+<span>Another hour's past</span>
+<span>They never seem to last</span>
+<span>Another day goes by</span>
+<span>No matter how I try</span>
+<span></span>
+<span>I've come to hate all clocks</span>
+<span>How every second knocks</span>
+<span>I wish I could reverse</span>
+<span>This quaint arachnid hearse</span>
+<span></span>
+((#<SPAN #(Time moves like spiders)> #<SPAN #(Over the face of the clock)>
+  #<SPAN #(Time's forward violence)> #<SPAN #(Eating away at the heart)>
+  #<SPAN #()> #<SPAN #(Another hour's past)> #<SPAN #(They never seem to last)>
+  #<SPAN #(Another day goes by)> #<SPAN #(No matter how I try)> #<SPAN #()>
+  #<SPAN #(I've come to hate all clocks)> #<SPAN #(How every second knocks)>
+  #<SPAN #(I wish I could reverse)> #<SPAN #(This quaint arachnid hearse)>
+  #<SPAN #()>))
+NIL
+USER> 
+```
 
 
-<a id="org5f6a2c0"></a>
+<a id="org8f27117"></a>
 
 # A Note on `COBWEB-GEN`
 
@@ -186,7 +243,7 @@ T
 ```
 
 
-<a id="orgecda9eb"></a>
+<a id="orgf2f3731"></a>
 
 # Potential Improvements
 
